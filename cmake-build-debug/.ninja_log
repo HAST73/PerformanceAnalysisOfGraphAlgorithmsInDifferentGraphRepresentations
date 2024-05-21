@@ -1,0 +1,7 @@
+# ninja log v5
+0	362	7379860501470741	CMakeFiles/Project_AIZO_2.dir/Sources/main.cpp.obj	7e56df756a7b8140
+2	359	7379863512817480	CMakeFiles/Project_AIZO_2.dir/Sources/Menu.cpp.obj	ad613c12c4d53c86
+359	490	7379863514097769	Project_AIZO_2.exe	51c3b270258db9cf
+12	105	7379866539435188	CMakeFiles/Project_AIZO_2.dir/Sources/ReadFile.cpp.obj	23c01adda2f9978f
+3	393	7379866542315841	CMakeFiles/Project_AIZO_2.dir/Sources/Menu.cpp.obj	ad613c12c4d53c86
+394	531	7379866543646134	Project_AIZO_2.exe	5d4102dfc29ced7d

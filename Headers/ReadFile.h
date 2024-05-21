@@ -1,0 +1,11 @@
+#ifndef PROJECT_AIZO_2_READFILE_H
+#define PROJECT_AIZO_2_READFILE_H
+
+
+class ReadFile {
+
+
+};
+
+
+#endif //PROJECT_AIZO_2_READFILE_H

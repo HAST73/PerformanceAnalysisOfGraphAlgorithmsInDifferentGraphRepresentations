@@ -1,25 +1,25 @@
 #ifndef PROJECT_AIZO_2_MENU_H
 #define PROJECT_AIZO_2_MENU_H
 
-#include <iostream>
 #include <vector>
 #include <string>
 
 class Menu {
 public:
-    Menu();
     void displayMainMenu();
     void handleMainMenu();
-
-private:
     void displayGraphMenu();
+    void displayFileMenu();
+    void handleFileMenu();
     void handleGraphMenu();
-    void loadGraphFromFile();
+    void displayFileContent();
     void generateRandomGraph();
     void displayGraph();
     void executeAlgorithms();
-
-    void cleanUp();
+    void processSelectFromLoadedFile();
 };
+
+// Global variable to hold data
+extern std::vector<std::vector<int>> globalIntData;
 
 #endif //PROJECT_AIZO_2_MENU_H

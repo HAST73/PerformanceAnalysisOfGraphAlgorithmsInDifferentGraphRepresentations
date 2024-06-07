@@ -7,15 +7,13 @@
 
 using namespace std;
 
+std::vector<std::vector<int>> globalIntData;
+
 void Menu::displayMainMenu() {
     std::cout << std::endl;
     std::cout << "=== MENU ===" << std::endl;
     std::cout << "1. Load file" << std::endl;
     std::cout << "2. Generate random graph file" << std::endl; // ctrl + alt + y
-    std::cout << "3. Display graph" << std::endl;
-    std::cout << "4. MST Algorithms" << std::endl;
-    std::cout << "5. Shortest path algorithms" << std::endl;
-    std::cout << "6. Max flow algorithms" << std::endl;
     std::cout << "0. Exit" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -30,27 +28,11 @@ void Menu::handleMainMenu() {
             case 1:
                 processSelectFromLoadedFile();
                 if (!globalIntData.empty()) {
-                    displayFileMenu();
                     handleFileMenu();
                 }
                 break;
             case 2:
                 generateRandomGraph();
-                break;
-            case 3:
-                displayGraph();
-                break;
-            case 4:
-                displayGraphMenu();
-                handleGraphMenu();
-                break;
-            case 5:
-                displayGraphMenu();
-                handleGraphMenu();
-                break;
-            case 6:
-                displayGraphMenu();
-                handleGraphMenu();
                 break;
             case 0:
                 std::cout << "Exiting program" << std::endl;
@@ -61,51 +43,43 @@ void Menu::handleMainMenu() {
     } while (choice != 0);
 }
 
-void Menu::displayGraphMenu() {
-    std::cout << "=== MENU GRAFU ===" << std::endl;
-    std::cout << "1. Algorytm macierzowy" << std::endl;
-    std::cout << "2. Algorytm listowy" << std::endl;
-    std::cout << "0. Powrot" << std::endl;
-    std::cout << "Select an option: ";
-}
-
 void Menu::displayFileMenu() {
     std::cout << std::endl;
     std::cout << "=== FILE MENU ===" << std::endl;
     std::cout << "1. Display file content" << std::endl;
+    std::cout << "2. Display incidence matrix (directed)" << std::endl;
+    std::cout << "3. Display incidence matrix (undirected)" << std::endl;
+    std::cout << "4.  (directed)" << std::endl;
+    std::cout << "5.  (undirected)" << std::endl;
+    std::cout << "6. MST Algorithms" << std::endl;
+    std::cout << "7. Shortest path algorithms" << std::endl;
+    std::cout << "8. Max flow algorithms" << std::endl;
     std::cout << "0. Back to main menu" << std::endl;
     std::cout << "Select an option: ";
 }
 
 void Menu::handleFileMenu() {
     int choice;
-    std::cin >> choice;
+    do {
+        displayFileMenu();
+        std::cin >> choice;
 
-    switch (choice) {
-        case 1:
-            displayFileContent();
-            break;
-        case 0:
-            break;
-        default:
-            std::cout << "Invalid option, try again." << std::endl;
-    }
-}
-
-void Menu::handleGraphMenu() {
-    int choice;
-    std::cin >> choice;
-
-    switch (choice) {
-        case 1:
-        case 2:
-            executeAlgorithms();
-            break;
-        case 0:
-            break;
-        default:
-            std::cout << "Niepoprawna opcja, sprobuj ponownie." << std::endl;
-    }
+        switch (choice) {
+            case 1:
+                displayFileContent();
+                break;
+            case 2:
+                displayIncidenceMatrix(true); // Directed incident matrix
+                break;
+            case 3:
+                displayIncidenceMatrix(false); // Undirected incident matrix
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
 }
 
 void Menu::displayFileContent() {
@@ -126,28 +100,13 @@ void Menu::generateRandomGraph() {
     std::cin >> vertices;
     std::cout << "Enter the density of the graph in percentage: ";
     std::cin >> density;
-    std::cout << "Enter the filename to save the graph: ";
+    std::cout << "Enter the filename to save the graph with the extension .txt: ";
     std::cin >> filename;
 
     GenerateRandomGraphFile generator;
     generator.generateGraphFile("../Sources/" + filename, vertices, density);
 
     std::cout << "Random graph file generated successfully." << std::endl;
-}
-
-void Menu::displayGraph() {
-    std::cout << "Graf w reprezentacji macierzowej:" << std::endl;
-    std::cout << "Graf w reprezentacji listowej:" << std::endl;
-}
-
-void Menu::executeAlgorithms() {
-    if (globalIntData.empty()) {
-        std::cout << "Graf nie zostal wczytany ani wygenerowany." << std::endl;
-        return;
-    }
-
-    // Dummy implementation for executing algorithms
-    std::cout << "Executing algorithms on the graph..." << std::endl;
 }
 
 void Menu::processSelectFromLoadedFile() {
@@ -167,4 +126,24 @@ void Menu::processSelectFromLoadedFile() {
     }
 }
 
-std::vector<std::vector<int>> globalIntData;
+void Menu::displayIncidenceMatrix(bool directed) {
+    if (!globalIntData.empty()) {
+        int vertices = globalIntData[0][1];
+        int edges = globalIntData[0][0];
+
+        IncidentMatrix incidentMatrix(vertices, edges, directed);
+
+        // Pętla zaczyna się od 1, ponieważ pierwszy wiersz został użyty do przechowywania liczby wierzchołków i krawędzi
+        for (int i = 1; i < globalIntData.size(); ++i) {
+            int v1 = globalIntData[i][0];
+            int v2 = globalIntData[i][1];
+            int edgeIndex = i - 1; // Odejmujemy 1, ponieważ pierwszy wiersz nie zawiera informacji o krawędziach
+            incidentMatrix.addEdge(v1, v2, edgeIndex);
+        }
+
+        std::cout << (directed ? "Directed" : "Undirected") << " Incident Matrix:" << std::endl;
+        incidentMatrix.printMatrix();
+    } else {
+        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+    }
+}

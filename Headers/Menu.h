@@ -3,20 +3,24 @@
 
 #include <vector>
 #include <string>
+#include "../Headers/IncidentMatrix.h"
 
 class Menu {
+private:
+    IncidentMatrix* graph;
+
 public:
+    Menu() : graph(nullptr) {}
+    ~Menu() { delete graph; }
+
     void displayMainMenu();
     void handleMainMenu();
-    void displayGraphMenu();
     void displayFileMenu();
     void handleFileMenu();
-    void handleGraphMenu();
     void displayFileContent();
     void generateRandomGraph();
-    void displayGraph();
-    void executeAlgorithms();
     void processSelectFromLoadedFile();
+    void displayIncidenceMatrix(bool directed); // Update the function declaration
 };
 
 // Global variable to hold data

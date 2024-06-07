@@ -21,6 +21,7 @@ public:
     void generateRandomGraph();
     void processSelectFromLoadedFile();
     void displayIncidenceMatrix(bool directed); // Update the function declaration
+    void displayAdjacencyList(bool directed);
 };
 
 // Global variable to hold data

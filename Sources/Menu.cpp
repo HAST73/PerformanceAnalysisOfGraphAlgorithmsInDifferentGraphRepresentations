@@ -1,6 +1,7 @@
 #include "../Headers/Menu.h"
 #include "../Headers/ReadFile.h"
 #include "../Headers/GenerateRandomGraphFile.h"
+#include "../Headers/AdjacencyLists.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -49,8 +50,8 @@ void Menu::displayFileMenu() {
     std::cout << "1. Display file content" << std::endl;
     std::cout << "2. Display incidence matrix (directed)" << std::endl;
     std::cout << "3. Display incidence matrix (undirected)" << std::endl;
-    std::cout << "4.  (directed)" << std::endl;
-    std::cout << "5.  (undirected)" << std::endl;
+    std::cout << "4. Display adjacency list (directed)" << std::endl;
+    std::cout << "5. Display adjacency list (undirected)" << std::endl;
     std::cout << "6. MST Algorithms" << std::endl;
     std::cout << "7. Shortest path algorithms" << std::endl;
     std::cout << "8. Max flow algorithms" << std::endl;
@@ -73,6 +74,12 @@ void Menu::handleFileMenu() {
                 break;
             case 3:
                 displayIncidenceMatrix(false); // Undirected incident matrix
+                break;
+            case 4:
+                displayAdjacencyList(true); // Directed adjacency list
+                break;
+            case 5:
+                displayAdjacencyList(false); // Undirected adjacency list
                 break;
             case 0:
                 break;
@@ -143,6 +150,26 @@ void Menu::displayIncidenceMatrix(bool directed) {
 
         std::cout << (directed ? "Directed" : "Undirected") << " Incident Matrix:" << std::endl;
         incidentMatrix.printMatrix();
+    } else {
+        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+    }
+}
+
+void Menu::displayAdjacencyList(bool directed) {
+    if (!globalIntData.empty()) {
+        int vertices = globalIntData[0][1];
+
+        AdjacencyList adjacencyList(vertices);
+
+        for (int i = 1; i < globalIntData.size(); ++i) {
+            int v1 = globalIntData[i][0];
+            int v2 = globalIntData[i][1];
+            int weight = globalIntData[i][2];
+            adjacencyList.addEdge(v1, v2, weight, directed);
+        }
+
+        std::cout << (directed ? "Directed" : "Undirected") << " Adjacency List:" << std::endl;
+        adjacencyList.printList();
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }

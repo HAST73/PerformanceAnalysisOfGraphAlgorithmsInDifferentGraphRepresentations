@@ -8,15 +8,19 @@
 
 class Menu {
 private:
-    IncidentMatrix* incidentMatrix;
-    AdjacencyList* adjacencyList;
+    IncidentMatrix* directedIncidentMatrix;
+    IncidentMatrix* undirectedIncidentMatrix;
+    AdjacencyList* directedAdjacencyList;
+    AdjacencyList* undirectedAdjacencyList;
     std::vector<std::vector<int>> globalIntData;
 
 public:
-    Menu() : incidentMatrix(nullptr), adjacencyList(nullptr) {}
+    Menu() : directedIncidentMatrix(nullptr), undirectedIncidentMatrix(nullptr), directedAdjacencyList(nullptr), undirectedAdjacencyList(nullptr) {}
     ~Menu() {
-        delete incidentMatrix;
-        delete adjacencyList;
+        delete directedIncidentMatrix;
+        delete undirectedIncidentMatrix;
+        delete directedAdjacencyList;
+        delete undirectedAdjacencyList;
     }
 
     void displayMainMenu();
@@ -37,8 +41,10 @@ public:
     void displayAlgorithmMenu();
     void handleAlgorithmMenu(bool isDirected);
 
-    IncidentMatrix* getIncidenceMatrix() { return incidentMatrix; }
-    AdjacencyList* getAdjacencyList() { return adjacencyList; }
+    IncidentMatrix* getDirectedIncidentMatrix() { return directedIncidentMatrix; }
+    IncidentMatrix* getUndirectedIncidentMatrix() { return undirectedIncidentMatrix; }
+    AdjacencyList* getDirectedAdjacencyList() { return directedAdjacencyList; }
+    AdjacencyList* getUndirectedAdjacencyList() { return undirectedAdjacencyList; }
 };
 
 #endif //PROJECT_AIZO_2_MENU_H

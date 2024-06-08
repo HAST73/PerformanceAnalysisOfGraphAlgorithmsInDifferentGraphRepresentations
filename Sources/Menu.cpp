@@ -240,19 +240,33 @@ void Menu::displayIncidenceMatrix(bool directed) {
         int vertices = globalIntData[0][1];
         int edges = globalIntData[0][0];
 
-        delete incidentMatrix;  // Free previously allocated memory
-        incidentMatrix = new IncidentMatrix(vertices, edges, directed); // Corrected variable name
+        if (directed) {
+            delete directedIncidentMatrix; // Free previously allocated memory
+            directedIncidentMatrix = new IncidentMatrix(vertices, edges, directed);
 
-        // Loop starts from 1 because the first row is used to store the number of vertices and edges
-        for (int i = 1; i < globalIntData.size(); ++i) {
-            int v1 = globalIntData[i][0];
-            int v2 = globalIntData[i][1];
-            int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
-            incidentMatrix->addEdge(v1, v2, edgeIndex);
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
+                directedIncidentMatrix->addEdge(v1, v2, edgeIndex);
+            }
+
+            std::cout << "Directed Incident Matrix:" << std::endl;
+            directedIncidentMatrix->printMatrix();
+        } else {
+            delete undirectedIncidentMatrix; // Free previously allocated memory
+            undirectedIncidentMatrix = new IncidentMatrix(vertices, edges, directed);
+
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
+                undirectedIncidentMatrix->addEdge(v1, v2, edgeIndex);
+            }
+
+            std::cout << "Undirected Incident Matrix:" << std::endl;
+            undirectedIncidentMatrix->printMatrix();
         }
-
-        std::cout << (directed ? "Directed" : "Undirected") << " Incident Matrix:" << std::endl;
-        incidentMatrix->printMatrix();
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }
@@ -262,18 +276,33 @@ void Menu::displayAdjacencyList(bool directed) {
     if (!globalIntData.empty()) {
         int vertices = globalIntData[0][1];
 
-        // Allocate new AdjacencyList and assign it to the member variable
-        adjacencyList = new AdjacencyList(vertices);
+        if (directed) {
+            delete directedAdjacencyList; // Free previously allocated memory
+            directedAdjacencyList = new AdjacencyList(vertices);
 
-        for (int i = 1; i < globalIntData.size(); ++i) {
-            int v1 = globalIntData[i][0];
-            int v2 = globalIntData[i][1];
-            int weight = globalIntData[i][2];
-            adjacencyList->addEdge(v1, v2, weight, directed);
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int weight = globalIntData[i][2];
+                directedAdjacencyList->addEdge(v1, v2, weight, directed);
+            }
+
+            std::cout << "Directed Adjacency List:" << std::endl;
+            directedAdjacencyList->printList();
+        } else {
+            delete undirectedAdjacencyList; // Free previously allocated memory
+            undirectedAdjacencyList = new AdjacencyList(vertices);
+
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int weight = globalIntData[i][2];
+                undirectedAdjacencyList->addEdge(v1, v2, weight, directed);
+            }
+
+            std::cout << "Undirected Adjacency List:" << std::endl;
+            undirectedAdjacencyList->printList();
         }
-
-        std::cout << (directed ? "Directed" : "Undirected") << " Adjacency List:" << std::endl;
-        adjacencyList->printList();
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }

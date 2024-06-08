@@ -97,6 +97,12 @@ build CMakeFiles/Project_AIZO_2.dir/Sources/PrimIncidenceMatrix.cpp.obj: CXX_COM
   OBJECT_DIR = CMakeFiles\Project_AIZO_2.dir
   OBJECT_FILE_DIR = CMakeFiles\Project_AIZO_2.dir\Sources
 
+build CMakeFiles/Project_AIZO_2.dir/Sources/MSTree.cpp.obj: CXX_COMPILER__Project_AIZO_2_Debug C$:/Users/Konrad/Desktop/Project_AIZO_2/Project_AIZO_2/Sources/MSTree.cpp || cmake_object_order_depends_target_Project_AIZO_2
+  DEP_FILE = CMakeFiles\Project_AIZO_2.dir\Sources\MSTree.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\Project_AIZO_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project_AIZO_2.dir\Sources
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Project_AIZO_2
@@ -105,7 +111,7 @@ build CMakeFiles/Project_AIZO_2.dir/Sources/PrimIncidenceMatrix.cpp.obj: CXX_COM
 #############################################
 # Link the executable Project_AIZO_2.exe
 
-build Project_AIZO_2.exe: CXX_EXECUTABLE_LINKER__Project_AIZO_2_Debug CMakeFiles/Project_AIZO_2.dir/Sources/main.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/Menu.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/ReadFile.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/GenerateRandomGraphFile.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/IncidentMatrix.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/AdjacencyList.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/PrimAdjacencyList.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/PrimIncidenceMatrix.cpp.obj
+build Project_AIZO_2.exe: CXX_EXECUTABLE_LINKER__Project_AIZO_2_Debug CMakeFiles/Project_AIZO_2.dir/Sources/main.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/Menu.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/ReadFile.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/GenerateRandomGraphFile.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/IncidentMatrix.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/AdjacencyList.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/PrimAdjacencyList.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/PrimIncidenceMatrix.cpp.obj CMakeFiles/Project_AIZO_2.dir/Sources/MSTree.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Project_AIZO_2.dir

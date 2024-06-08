@@ -13,6 +13,15 @@ using namespace std;
 
 std::vector<std::vector<int>> globalIntData;
 
+Menu::~Menu() {
+    delete directedIncidentMatrix;
+    delete undirectedIncidentMatrix;
+    delete directedWeightedIncidentMatrix;
+    delete undirectedWeightedIncidentMatrix;
+    delete directedAdjacencyList;
+    delete undirectedAdjacencyList;
+}
+
 void Menu::displayMainMenu() {
     std::cout << std::endl;
     std::cout << "=== MENU ===" << std::endl;
@@ -53,9 +62,11 @@ void Menu::displayFileMenu() {
     std::cout << "1. Display file content" << std::endl;
     std::cout << "2. Display incidence matrix (directed)" << std::endl;
     std::cout << "3. Display incidence matrix (undirected)" << std::endl;
-    std::cout << "4. Display adjacency list (directed)" << std::endl;
-    std::cout << "5. Display adjacency list (undirected)" << std::endl;
-    std::cout << "6. Select graph type for algorithms" << std::endl;
+    std::cout << "4. Display weighted incidence matrix (directed)" << std::endl; // New option
+    std::cout << "5. Display weighted incidence matrix (undirected)" << std::endl; // New option
+    std::cout << "6. Display adjacency list (directed)" << std::endl;
+    std::cout << "7. Display adjacency list (undirected)" << std::endl;
+    std::cout << "8. Select graph type for algorithms" << std::endl;
     std::cout << "0. Back to main menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -71,18 +82,24 @@ void Menu::handleFileMenu() {
                 displayFileContent();
                 break;
             case 2:
-                displayIncidenceMatrix(true); // Directed incident matrix
+                displayIncidenceMatrix(true); // Directed incidence matrix
                 break;
             case 3:
-                displayIncidenceMatrix(false); // Undirected incident matrix
+                displayIncidenceMatrix(false); // Undirected incidence matrix
                 break;
             case 4:
-                displayAdjacencyList(true); // Directed adjacency list
+                displayWeightedIncidenceMatrix(true); // Directed weighted incidence matrix
                 break;
             case 5:
-                displayAdjacencyList(false); // Undirected adjacency list
+                displayWeightedIncidenceMatrix(false); // Undirected weighted incidence matrix
                 break;
             case 6:
+                displayAdjacencyList(true); // Directed adjacency list
+                break;
+            case 7:
+                displayAdjacencyList(false); // Undirected adjacency list
+                break;
+            case 8:
                 handleGraphTypeMenu();
                 break;
             case 0:
@@ -141,17 +158,13 @@ void Menu::handleAlgorithmMenu(bool isDirected) {
 
         switch (choice) {
             case 1:
-                if (!isDirected) {
-                    handleMSTMenu();
-                } else {
-                    std::cout << "MST Algorithms are not applicable for directed graphs." << std::endl;
-                }
+                handleMSTMenu();
                 break;
             case 2:
-                std::cout << "Shortest Path Algorithms not implemented yet." << std::endl;
+                // Call Shortest Path Algorithm Menu Function
                 break;
             case 3:
-                std::cout << "Maximum Flow Algorithms not implemented yet." << std::endl;
+                // Call Maximum Flow Algorithm Menu Function
                 break;
             case 0:
                 break;
@@ -163,9 +176,9 @@ void Menu::handleAlgorithmMenu(bool isDirected) {
 
 void Menu::displayMSTMenu() {
     std::cout << std::endl;
-    std::cout << "=== MST ALGORITHMS ===" << std::endl;
-    std::cout << "1. Prim's Algorithm using Incidence Matrix" << std::endl;
-    std::cout << "2. Prim's Algorithm using Adjacency List" << std::endl;
+    std::cout << "=== MINIMUM SPANNING TREE ALGORITHMS ===" << std::endl;
+    std::cout << "1. Prim's Algorithm (Adjacency List)" << std::endl;
+    std::cout << "2. Prim's Algorithm (Incidence Matrix)" << std::endl;
     std::cout << "0. Back to algorithm menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -178,18 +191,10 @@ void Menu::handleMSTMenu() {
 
         switch (choice) {
             case 1:
-                if (undirectedIncidentMatrix) {
-                    PrimIncidenceMatrix::run(undirectedIncidentMatrix, 0); // Starting from vertex 0
-                } else {
-                    std::cout << "No undirected incident matrix available. Generate or load a graph first." << std::endl;
-                }
+                // Call Prim's Algorithm using Adjacency List
                 break;
             case 2:
-                if (undirectedAdjacencyList) {
-                    PrimAdjacencyList::run(undirectedAdjacencyList, 0); // Starting from vertex 0
-                } else {
-                    std::cout << "No undirected adjacency list available. Generate or load a graph first." << std::endl;
-                }
+                // Call Prim's Algorithm using Incidence Matrix
                 break;
             case 0:
                 break;
@@ -200,10 +205,10 @@ void Menu::handleMSTMenu() {
 }
 
 void Menu::displayFileContent() {
-    std::cout << "File content:" << std::endl;
+    std::cout << "=== FILE CONTENT ===" << std::endl;
     for (const auto& line : globalIntData) {
-        for (const auto& num : line) {
-            std::cout << num << " ";
+        for (const auto& value : line) {
+            std::cout << value << " ";
         }
         std::cout << std::endl;
     }
@@ -310,6 +315,45 @@ void Menu::displayAdjacencyList(bool directed) {
 
             std::cout << "Undirected Adjacency List:" << std::endl;
             undirectedAdjacencyList->printList();
+        }
+    } else {
+        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+    }
+}
+
+void Menu::displayWeightedIncidenceMatrix(bool directed) {
+    if (!globalIntData.empty()) {
+        int vertices = globalIntData[0][1];
+        int edges = globalIntData[0][0];
+
+        if (directed) {
+            delete directedWeightedIncidentMatrix; // Free previously allocated memory
+            directedWeightedIncidentMatrix = new IncidentMatrix(vertices, edges, directed);
+
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int weight = globalIntData[i][2];
+                int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
+                directedWeightedIncidentMatrix->addEdge(v1, v2, edgeIndex, weight);
+            }
+
+            std::cout << "Directed Weighted Incident Matrix:" << std::endl;
+            directedWeightedIncidentMatrix->printMatrix();
+        } else {
+            delete undirectedWeightedIncidentMatrix; // Free previously allocated memory
+            undirectedWeightedIncidentMatrix = new IncidentMatrix(vertices, edges, directed);
+
+            for (int i = 1; i < globalIntData.size(); ++i) {
+                int v1 = globalIntData[i][0];
+                int v2 = globalIntData[i][1];
+                int weight = globalIntData[i][2];
+                int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
+                undirectedWeightedIncidentMatrix->addEdge(v1, v2, edgeIndex, weight);
+            }
+
+            std::cout << "Undirected Weighted Incident Matrix:" << std::endl;
+            undirectedWeightedIncidentMatrix->printMatrix();
         }
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;

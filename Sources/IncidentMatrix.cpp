@@ -8,13 +8,13 @@ IncidentMatrix::IncidentMatrix(int vertices, int edges, bool directed)
     matrix.resize(vertices, std::vector<int>(edges, 0));
 }
 
-void IncidentMatrix::addEdge(int v1, int v2, int edgeIndex) {
+void IncidentMatrix::addEdge(int v1, int v2, int edgeIndex, int weight) {
     if (directed) {
-        matrix[v1][edgeIndex] = 1;
-        matrix[v2][edgeIndex] = -1;
+        matrix[v1][edgeIndex] = weight;
+        matrix[v2][edgeIndex] = -weight;
     } else {
-        matrix[v1][edgeIndex] = 1;
-        matrix[v2][edgeIndex] = 1;
+        matrix[v1][edgeIndex] = weight;
+        matrix[v2][edgeIndex] = weight;
     }
 }
 

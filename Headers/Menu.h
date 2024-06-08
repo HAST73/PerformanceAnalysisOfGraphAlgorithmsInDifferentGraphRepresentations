@@ -6,6 +6,7 @@
 
 class Menu {
 public:
+    ~Menu();
     void displayMainMenu();
     void handleMainMenu();
 
@@ -27,10 +28,13 @@ private:
     void processSelectFromLoadedFile();
 
     void displayIncidenceMatrix(bool directed);
+    void displayWeightedIncidenceMatrix(bool directed); // New function
     void displayAdjacencyList(bool directed);
 
     IncidentMatrix* directedIncidentMatrix = nullptr;
     IncidentMatrix* undirectedIncidentMatrix = nullptr;
+    IncidentMatrix* directedWeightedIncidentMatrix = nullptr; // New variable
+    IncidentMatrix* undirectedWeightedIncidentMatrix = nullptr; // New variable
     AdjacencyList* directedAdjacencyList = nullptr;
     AdjacencyList* undirectedAdjacencyList = nullptr;
 };

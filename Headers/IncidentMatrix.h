@@ -7,14 +7,15 @@
 class IncidentMatrix {
 public:
     IncidentMatrix(int vertices, int edges, bool directed);
-    void addEdge(int v1, int v2, int edgeIndex);
+    void addEdge(int v1, int v2, int edgeIndex, int weight = 1); // Add weight parameter
     void printMatrix();
     int getVertices() const { return vertices; }
     int getEdges() const { return edges; }
     const std::vector<std::vector<int>>& getMatrix() const { return matrix; }
 
 private:
-    std::vector<std::vector<int>> matrix;
+    std::vector<std::vector<int>> matrix; // Incident Matrix for unweighted graph
+    std::vector<std::vector<int>> weightedMatrix; // Incident Matrix for weighted graph
     int vertices;
     int edges;
     bool directed;

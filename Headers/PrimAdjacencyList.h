@@ -1,8 +1,11 @@
 #ifndef PROJECT_AIZO_2_PRIMADJACENCYLIST_H
 #define PROJECT_AIZO_2_PRIMADJACENCYLIST_H
 
-class PrimAdjacencyList {
+#include "../Headers/AdjacencyList.h"
 
+class PrimAdjacencyList {
+public:
+    static void run(AdjacencyList* graph, int startVertex);
 };
 
 #endif //PROJECT_AIZO_2_PRIMADJACENCYLIST_H

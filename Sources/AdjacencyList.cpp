@@ -1,44 +1,30 @@
 #include "../Headers/AdjacencyList.h"
-#include <algorithm>
+#include <iostream>
+#include <list>
+#include <vector>
 
 AdjacencyList::AdjacencyList(int vertices)
-        : n(vertices), adjacencyList(vertices) {}
+        : vertices(vertices) {
+    adjList.resize(vertices);
+}
 
 void AdjacencyList::addEdge(int v1, int v2, int weight, bool directed) {
-    adjacencyList[v1].emplace_back(v2, weight);
+    adjList[v1].push_back(std::make_pair(v2, weight));
     if (!directed) {
-        adjacencyList[v2].emplace_back(v1, weight);
+        adjList[v2].push_back(std::make_pair(v1, weight));
     }
 }
 
-void AdjacencyList::printList() const {
-    for (int i = 0; i < n; ++i) {
-        std::cout << "A[" << i << "] =";
-        if (adjacencyList[i].empty()) {
-            std::cout << " brak";
+void AdjacencyList::printList() {
+    for (int i = 0; i < vertices; ++i) {
+        std::cout << i << ": ";
+        if (adjList[i].empty()) {
+            std::cout << "Brak";
         } else {
-            // Sort the adjacency list of vertex i
-            std::vector<std::tuple<int, int>> sortedNeighbors = adjacencyList[i];
-            std::sort(sortedNeighbors.begin(), sortedNeighbors.end());
-
-            for (auto it = sortedNeighbors.begin(); it != sortedNeighbors.end(); ++it) {
-                int neighbor = std::get<0>(*it);
-                int weight = std::get<1>(*it);
-                std::cout << " " << neighbor << "(" << weight << ")";
+            for (const auto& edge : adjList[i]) {
+                std::cout << "(" << edge.first << ", " << edge.second << ") ";
             }
         }
         std::cout << std::endl;
     }
-}
-
-int AdjacencyList::vertexDegree(int vertexIndex) const {
-    return adjacencyList[vertexIndex].size();
-}
-
-std::vector<std::tuple<int, int>> AdjacencyList::neighbors(int vertexIndex) const {
-    return adjacencyList[vertexIndex];
-}
-
-bool AdjacencyList::isIsolated(int vertexIndex) const {
-    return adjacencyList[vertexIndex].empty();
 }

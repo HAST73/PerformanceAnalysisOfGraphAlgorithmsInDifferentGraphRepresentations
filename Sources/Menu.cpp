@@ -164,8 +164,8 @@ void Menu::handleAlgorithmMenu(bool isDirected) {
 void Menu::displayMSTMenu() {
     std::cout << std::endl;
     std::cout << "=== MST ALGORITHMS ===" << std::endl;
-    std::cout << "1. PrimAdjacencyList's Algorithm using Incidence Matrix" << std::endl;
-    std::cout << "2. PrimAdjacencyList's Algorithm using Adjacency List" << std::endl;
+    std::cout << "1. Prim's Algorithm using Incidence Matrix" << std::endl;
+    std::cout << "2. Prim's Algorithm using Adjacency List" << std::endl;
     std::cout << "0. Back to algorithm menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -178,10 +178,18 @@ void Menu::handleMSTMenu() {
 
         switch (choice) {
             case 1:
-
+                if (undirectedIncidentMatrix) {
+                    PrimIncidenceMatrix::run(undirectedIncidentMatrix, 0); // Starting from vertex 0
+                } else {
+                    std::cout << "No undirected incident matrix available. Generate or load a graph first." << std::endl;
+                }
                 break;
             case 2:
-
+                if (undirectedAdjacencyList) {
+                    PrimAdjacencyList::run(undirectedAdjacencyList, 0); // Starting from vertex 0
+                } else {
+                    std::cout << "No undirected adjacency list available. Generate or load a graph first." << std::endl;
+                }
                 break;
             case 0:
                 break;

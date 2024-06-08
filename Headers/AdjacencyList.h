@@ -2,23 +2,21 @@
 #define PROJECT_AIZO_2_ADJACENCYLISTS_H
 
 #include <vector>
-#include <tuple>
+#include <list>
 #include <iostream>
-#include <algorithm>
+#include <utility>
 
 class AdjacencyList {
-private:
-    int n; // number of vertices
-    std::vector<std::vector<std::tuple<int, int>>> adjacencyList;
-
 public:
     AdjacencyList(int vertices);
     void addEdge(int v1, int v2, int weight, bool directed);
-    void printList() const;
-    int vertexDegree(int vertexIndex) const;
-    std::vector<std::tuple<int, int>> neighbors(int vertexIndex) const;
-    bool isIsolated(int vertexIndex) const;
-};
+    void printList();
+    int getVertices() const { return vertices; }
+    const std::vector<std::list<std::pair<int, int>>>& getAdjList() const { return adjList; }
 
+private:
+    std::vector<std::list<std::pair<int, int>>> adjList;
+    int vertices;
+};
 
 #endif //PROJECT_AIZO_2_ADJACENCYLISTS_H

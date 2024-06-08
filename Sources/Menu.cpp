@@ -191,10 +191,17 @@ void Menu::handleMSTMenu() {
 
         switch (choice) {
             case 1:
-                // Call Prim's Algorithm using Adjacency List
+                // Call Prim's Algorithm using Adjacency List (assuming this function is implemented)
                 break;
             case 2:
-                // Call Prim's Algorithm using Incidence Matrix
+                if (directedWeightedIncidentMatrix) {
+                    int startVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    PrimIncidenceMatrix::run(directedWeightedIncidentMatrix, startVertex);
+                } else {
+                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                }
                 break;
             case 0:
                 break;
@@ -203,6 +210,7 @@ void Menu::handleMSTMenu() {
         }
     } while (choice != 0);
 }
+
 
 void Menu::displayFileContent() {
     std::cout << "=== FILE CONTENT ===" << std::endl;

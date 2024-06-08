@@ -20,6 +20,7 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
     std::vector<int> parent(vertices, -1); // Stores the MST
     std::vector<bool> inMST(vertices, false); // Keeps track of vertices included in MST
+    int totalCost = 0; // Total cost of MST
 
     key[startVertex] = 0; // Start from the startVertex
 
@@ -60,11 +61,15 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
         }
     }
 
-    // Print MST paths from startVertex to endVertex
+    // Print MST paths from startVertex to endVertex and calculate total cost
     std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
     for (int i = startVertex; i <= endVertex; ++i) {
         if (parent[i] != -1 && i != startVertex) {
             std::cout << parent[i] << " - " << i << " : " << key[i] << std::endl;
+            totalCost += key[i]; // Add edge weight to total cost
         }
     }
+
+    // Print the total cost of MST
+    std::cout << "Total cost of MST: " << totalCost << std::endl;
 }

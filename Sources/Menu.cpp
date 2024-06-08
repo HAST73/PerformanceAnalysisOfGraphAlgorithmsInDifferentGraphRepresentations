@@ -2,6 +2,8 @@
 #include "../Headers/ReadFile.h"
 #include "../Headers/GenerateRandomGraphFile.h"
 #include "../Headers/AdjacencyLists.h"
+#include "../Headers/IncidentMatrix.h"
+#include "../Headers/Prim.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -14,7 +16,7 @@ void Menu::displayMainMenu() {
     std::cout << std::endl;
     std::cout << "=== MENU ===" << std::endl;
     std::cout << "1. Load file" << std::endl;
-    std::cout << "2. Generate random graph file" << std::endl; // ctrl + alt + y
+    std::cout << "2. Generate random graph file" << std::endl;
     std::cout << "0. Exit" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -52,9 +54,7 @@ void Menu::displayFileMenu() {
     std::cout << "3. Display incidence matrix (undirected)" << std::endl;
     std::cout << "4. Display adjacency list (directed)" << std::endl;
     std::cout << "5. Display adjacency list (undirected)" << std::endl;
-    std::cout << "6. MST Algorithms" << std::endl;
-    std::cout << "7. Shortest path algorithms" << std::endl;
-    std::cout << "8. Max flow algorithms" << std::endl;
+    std::cout << "6. Select graph type for algorithms" << std::endl;
     std::cout << "0. Back to main menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -80,6 +80,107 @@ void Menu::handleFileMenu() {
                 break;
             case 5:
                 displayAdjacencyList(false); // Undirected adjacency list
+                break;
+            case 6:
+                handleGraphTypeMenu();
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displayGraphTypeMenu() {
+    std::cout << std::endl;
+    std::cout << "=== SELECT GRAPH TYPE ===" << std::endl;
+    std::cout << "1. Directed graph (For Shortest Path and Maximum Flow Algorithms)" << std::endl;
+    std::cout << "2. Undirected graph (For Minimum Spanning Tree Algorithms)" << std::endl;
+    std::cout << "0. Back to file menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handleGraphTypeMenu() {
+    int choice;
+    do {
+        displayGraphTypeMenu();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                handleAlgorithmMenu(true);
+                break;
+            case 2:
+                handleAlgorithmMenu(false);
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displayAlgorithmMenu() {
+    std::cout << std::endl;
+    std::cout << "=== ALGORITHMS ===" << std::endl;
+    std::cout << "1. Minimum Spanning Tree Algorithms" << std::endl;
+    std::cout << "2. Shortest Path Algorithms" << std::endl;
+    std::cout << "3. Maximum Flow Algorithms" << std::endl;
+    std::cout << "0. Back to graph type menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handleAlgorithmMenu(bool isDirected) {
+    int choice;
+    do {
+        displayAlgorithmMenu();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (!isDirected) {
+                    handleMSTMenu();
+                } else {
+                    std::cout << "MST Algorithms are not applicable for directed graphs." << std::endl;
+                }
+                break;
+            case 2:
+                std::cout << "Shortest Path Algorithms not implemented yet." << std::endl;
+                break;
+            case 3:
+                std::cout << "Maximum Flow Algorithms not implemented yet." << std::endl;
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displayMSTMenu() {
+    std::cout << std::endl;
+    std::cout << "=== MST ALGORITHMS ===" << std::endl;
+    std::cout << "1. Prim's Algorithm" << std::endl;
+    std::cout << "2. Kruskal's Algorithm" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handleMSTMenu() {
+    int choice;
+    do {
+        displayMSTMenu();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                runPrimAlgorithm();
+                break;
+            case 2:
+                runKruskalAlgorithm();
                 break;
             case 0:
                 break;
@@ -173,4 +274,28 @@ void Menu::displayAdjacencyList(bool directed) {
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }
+}
+
+void Menu::runPrimAlgorithm() {
+    if (!globalIntData.empty()) {
+        int vertices = globalIntData[0][1];
+        Prim prim(vertices);
+
+        for (int i = 1; i < globalIntData.size(); ++i) {
+            int v1 = globalIntData[i][0];
+            int v2 = globalIntData[i][1];
+            int weight = globalIntData[i][2];
+            prim.addEdge(v1, v2, weight);
+        }
+
+        prim.findMST();
+        std::cout << "Minimum Spanning Tree using Prim's Algorithm:" << std::endl;
+        prim.printMST();
+    } else {
+        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+    }
+}
+
+void Menu::runKruskalAlgorithm() {
+    std::cout << "Kruskal's Algorithm not implemented yet." << std::endl;
 }

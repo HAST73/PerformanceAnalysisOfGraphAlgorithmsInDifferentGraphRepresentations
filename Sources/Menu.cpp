@@ -194,13 +194,13 @@ void Menu::handleMSTMenu() {
                 // Call Prim's Algorithm using Adjacency List (assuming this function is implemented)
                 break;
             case 2:
-                if (directedWeightedIncidentMatrix) {
+                if (undirectedWeightedIncidentMatrix) {
                     int startVertex;
                     std::cout << "Enter the start vertex: ";
                     std::cin >> startVertex;
-                    PrimIncidenceMatrix::run(directedWeightedIncidentMatrix, startVertex);
+                    PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex);
                 } else {
-                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                    std::cout << "No undirected weighted incidence matrix available." << std::endl;
                 }
                 break;
             case 0:

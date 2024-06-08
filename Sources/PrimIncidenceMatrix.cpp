@@ -15,33 +15,33 @@ public:
 };
 
 void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
-    int vertices = graph->getVertices(); // Liczba wierzchołków
-    int edges = graph->getEdges(); // Liczba krawędzi
-    std::vector<int> key(vertices, INT_MAX); // Minimalne wagi dołączenia wierzchołków do MST
-    std::vector<int> parent(vertices, -1); // Przechowuje MST
-    std::vector<bool> inMST(vertices, false); // Przechowuje informacje, czy wierzchołek jest już w MST
+    int vertices = graph->getVertices(); // Number of vertices
+    int edges = graph->getEdges(); // Number of edges
+    std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
+    std::vector<int> parent(vertices, -1); // Stores the MST
+    std::vector<bool> inMST(vertices, false); // Keeps track of vertices included in MST
 
-    key[startVertex] = 0; // Startujemy od startVertex
+    key[startVertex] = 0; // Start from the startVertex
 
-    // Kolejka priorytetowa do przetwarzania wierzchołków
+    // Priority queue to process vertices
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, Compare> pq;
     pq.push({startVertex, key[startVertex]});
 
     while (!pq.empty()) {
-        int u = pq.top().first; // Pobierz wierzchołek o minimalnym kluczu
+        int u = pq.top().first; // Get the vertex with the minimum key
         pq.pop();
 
-        inMST[u] = true; // Dodaj wierzchołek do MST
+        inMST[u] = true; // Add vertex to MST
 
-        const auto& matrix = graph->getMatrix(); // Pobierz macierz incydencji
+        const auto& matrix = graph->getMatrix(); // Get the incidence matrix
         for (int e = 0; e < edges; ++e) {
             int v = -1;
             int weight = 0;
 
-            // Znajdź krawędź wychodzącą z u
-            if (matrix[u][e] > 0) {
+            // Find the edge incident to u
+            if (matrix[u][e] != 0) {
                 for (int j = 0; j < vertices; ++j) {
-                    if (j != u && matrix[j][e] < 0) {
+                    if (j != u && matrix[j][e] != 0) {
                         v = j;
                         weight = matrix[u][e];
                         break;
@@ -49,7 +49,7 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
                 }
             }
 
-            // Aktualizacja klucza i rodzica, jeśli znaleziono mniejszą wagę krawędzi
+            // Update key and parent if a smaller weight is found
             if (v != -1 && !inMST[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
@@ -58,7 +58,7 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
         }
     }
 
-    // Wydrukuj MST
+    // Print MST
     std::cout << "Minimum Spanning Tree (Prim's Algorithm):" << std::endl;
     for (int i = 0; i < vertices; ++i) {
         if (parent[i] != -1) {

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "../Headers/IncidentMatrix.h"
-#include "../Headers/AdjacencyLists.h"
+#include "../Headers/AdjacencyList.h"
 
 class Menu {
 private:

@@ -1,4 +1,4 @@
-#include "../Headers/AdjacencyLists.h"
+#include "../Headers/AdjacencyList.h"
 #include <algorithm>
 
 AdjacencyList::AdjacencyList(int vertices)

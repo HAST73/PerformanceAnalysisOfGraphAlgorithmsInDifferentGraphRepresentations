@@ -1,7 +1,7 @@
 #include "../Headers/Menu.h"
 #include "../Headers/ReadFile.h"
 #include "../Headers/GenerateRandomGraphFile.h"
-#include "../Headers/AdjacencyLists.h"
+#include "../Headers/AdjacencyList.h"
 #include "../Headers/IncidentMatrix.h"
 #include "../Headers/Prim.h"
 #include <iostream>

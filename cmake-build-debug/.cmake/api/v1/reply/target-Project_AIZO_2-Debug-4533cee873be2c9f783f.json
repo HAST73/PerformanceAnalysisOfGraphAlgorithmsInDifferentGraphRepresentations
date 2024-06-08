@@ -175,12 +175,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Sources/AdjacencyLists.cpp",
+			"path" : "Sources/AdjacencyList.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "Headers/AdjacencyLists.h",
+			"path" : "Headers/AdjacencyList.h",
 			"sourceGroupIndex" : 1
 		},
 		{

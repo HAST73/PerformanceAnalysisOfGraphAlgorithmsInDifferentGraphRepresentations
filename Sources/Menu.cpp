@@ -3,7 +3,8 @@
 #include "../Headers/GenerateRandomGraphFile.h"
 #include "../Headers/AdjacencyList.h"
 #include "../Headers/IncidentMatrix.h"
-#include "../Headers/Prim.h"
+#include "../Headers/PrimAdjacencyList.h"
+#include "../Headers/PrimIncidenceMatrix.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -163,8 +164,8 @@ void Menu::handleAlgorithmMenu(bool isDirected) {
 void Menu::displayMSTMenu() {
     std::cout << std::endl;
     std::cout << "=== MST ALGORITHMS ===" << std::endl;
-    std::cout << "1. Prim's Algorithm" << std::endl;
-    std::cout << "2. Kruskal's Algorithm" << std::endl;
+    std::cout << "1. PrimAdjacencyList's Algorithm using Incidence Matrix" << std::endl;
+    std::cout << "2. PrimAdjacencyList's Algorithm using Adjacency List" << std::endl;
     std::cout << "0. Back to algorithm menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -177,10 +178,10 @@ void Menu::handleMSTMenu() {
 
         switch (choice) {
             case 1:
-                runPrimAlgorithm();
+
                 break;
             case 2:
-                runKruskalAlgorithm();
+
                 break;
             case 0:
                 break;
@@ -239,18 +240,19 @@ void Menu::displayIncidenceMatrix(bool directed) {
         int vertices = globalIntData[0][1];
         int edges = globalIntData[0][0];
 
-        IncidentMatrix incidentMatrix(vertices, edges, directed);
+        delete incidentMatrix;  // Free previously allocated memory
+        incidentMatrix = new IncidentMatrix(vertices, edges, directed); // Corrected variable name
 
-        // Pętla zaczyna się od 1, ponieważ pierwszy wiersz został użyty do przechowywania liczby wierzchołków i krawędzi
+        // Loop starts from 1 because the first row is used to store the number of vertices and edges
         for (int i = 1; i < globalIntData.size(); ++i) {
             int v1 = globalIntData[i][0];
             int v2 = globalIntData[i][1];
-            int edgeIndex = i - 1; // Odejmujemy 1, ponieważ pierwszy wiersz nie zawiera informacji o krawędziach
-            incidentMatrix.addEdge(v1, v2, edgeIndex);
+            int edgeIndex = i - 1; // Subtract 1 because the first row does not contain edge information
+            incidentMatrix->addEdge(v1, v2, edgeIndex);
         }
 
         std::cout << (directed ? "Directed" : "Undirected") << " Incident Matrix:" << std::endl;
-        incidentMatrix.printMatrix();
+        incidentMatrix->printMatrix();
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }
@@ -260,42 +262,19 @@ void Menu::displayAdjacencyList(bool directed) {
     if (!globalIntData.empty()) {
         int vertices = globalIntData[0][1];
 
-        AdjacencyList adjacencyList(vertices);
+        // Allocate new AdjacencyList and assign it to the member variable
+        adjacencyList = new AdjacencyList(vertices);
 
         for (int i = 1; i < globalIntData.size(); ++i) {
             int v1 = globalIntData[i][0];
             int v2 = globalIntData[i][1];
             int weight = globalIntData[i][2];
-            adjacencyList.addEdge(v1, v2, weight, directed);
+            adjacencyList->addEdge(v1, v2, weight, directed);
         }
 
         std::cout << (directed ? "Directed" : "Undirected") << " Adjacency List:" << std::endl;
-        adjacencyList.printList();
+        adjacencyList->printList();
     } else {
         std::cout << "No graph data available. Load or generate a graph first." << std::endl;
     }
-}
-
-void Menu::runPrimAlgorithm() {
-    if (!globalIntData.empty()) {
-        int vertices = globalIntData[0][1];
-        Prim prim(vertices);
-
-        for (int i = 1; i < globalIntData.size(); ++i) {
-            int v1 = globalIntData[i][0];
-            int v2 = globalIntData[i][1];
-            int weight = globalIntData[i][2];
-            prim.addEdge(v1, v2, weight);
-        }
-
-        prim.findMST();
-        std::cout << "Minimum Spanning Tree using Prim's Algorithm:" << std::endl;
-        prim.printMST();
-    } else {
-        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
-    }
-}
-
-void Menu::runKruskalAlgorithm() {
-    std::cout << "Kruskal's Algorithm not implemented yet." << std::endl;
 }

@@ -21,7 +21,9 @@ void AdjacencyList::printList() const {
             std::vector<std::tuple<int, int>> sortedNeighbors = adjacencyList[i];
             std::sort(sortedNeighbors.begin(), sortedNeighbors.end());
 
-            for (const auto& [neighbor, weight] : sortedNeighbors) {
+            for (auto it = sortedNeighbors.begin(); it != sortedNeighbors.end(); ++it) {
+                int neighbor = std::get<0>(*it);
+                int weight = std::get<1>(*it);
                 std::cout << " " << neighbor << "(" << weight << ")";
             }
         }

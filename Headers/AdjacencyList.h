@@ -1,14 +1,14 @@
 #ifndef PROJECT_AIZO_2_ADJACENCYLISTS_H
 #define PROJECT_AIZO_2_ADJACENCYLISTS_H
 
-#include <iostream>
 #include <vector>
-#include <iomanip>
 #include <tuple>
+#include <iostream>
+#include <algorithm>
 
 class AdjacencyList {
 private:
-    int n;
+    int n; // number of vertices
     std::vector<std::vector<std::tuple<int, int>>> adjacencyList;
 
 public:

@@ -8,11 +8,16 @@
 
 class Menu {
 private:
-    IncidentMatrix* graph;
+    IncidentMatrix* incidentMatrix;
+    AdjacencyList* adjacencyList;
+    std::vector<std::vector<int>> globalIntData;
 
 public:
-    Menu() : graph(nullptr) {}
-    ~Menu() { delete graph; }
+    Menu() : incidentMatrix(nullptr), adjacencyList(nullptr) {}
+    ~Menu() {
+        delete incidentMatrix;
+        delete adjacencyList;
+    }
 
     void displayMainMenu();
     void handleMainMenu();
@@ -23,7 +28,7 @@ public:
     void displayFileContent();
     void generateRandomGraph();
     void processSelectFromLoadedFile();
-    void displayIncidenceMatrix(bool directed); // Update the function declaration
+    void displayIncidenceMatrix(bool directed);
     void displayAdjacencyList(bool directed);
     void runPrimAlgorithm();
     void runKruskalAlgorithm();
@@ -31,6 +36,9 @@ public:
     void handleGraphTypeMenu();
     void displayAlgorithmMenu();
     void handleAlgorithmMenu(bool isDirected);
+
+    IncidentMatrix* getIncidenceMatrix() { return incidentMatrix; }
+    AdjacencyList* getAdjacencyList() { return adjacencyList; }
 };
 
 #endif //PROJECT_AIZO_2_MENU_H

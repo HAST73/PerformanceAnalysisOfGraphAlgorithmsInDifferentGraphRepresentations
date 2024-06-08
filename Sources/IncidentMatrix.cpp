@@ -26,7 +26,7 @@ int IncidentMatrix::vertexDegree(int vertexIndex) {
     int degree = 0;
     for (int j = 0; j < m; j++) {
         if (incidenceMatrix[vertexIndex][j] != 0) {
-            if (!directed || incidenceMatrix[vertexIndex][j] == 1) // jeśli graf nieskierowany lub krawędź wychodzi z wierzchołka
+            if (!directed || incidenceMatrix[vertexIndex][j] == 1) // if undirected or edge is outgoing
                 degree++;
         }
     }
@@ -38,9 +38,9 @@ std::vector<int> IncidentMatrix::neighbors(int vertexIndex) {
     for (int j = 0; j < m; j++) {
         if (incidenceMatrix[vertexIndex][j] != 0) {
             for (int i = 0; i < n; i++) {
-                if (i != vertexIndex && incidenceMatrix[i][j] != 0) { // pomiń wierzchołek sam do siebie oraz przeciwne krawędzie
+                if (i != vertexIndex && incidenceMatrix[i][j] != 0) { // avoid self-loops and opposite edges
                     neighborsList.push_back(i);
-                    break; // znajdujemy tylko jednego sąsiada wzdłuż danej krawędzi
+                    break; // find only one neighbor along a given edge
                 }
             }
         }
@@ -50,7 +50,7 @@ std::vector<int> IncidentMatrix::neighbors(int vertexIndex) {
 
 bool IncidentMatrix::isIsolated(int vertexIndex) {
     for (int j = 0; j < m; j++) {
-        if (incidenceMatrix[vertexIndex][j] != 0) return false; // jeśli istnieje krawędź z lub do tego wierzchołka
+        if (incidenceMatrix[vertexIndex][j] != 0) return false; // if there is an edge from or to this vertex
     }
-    return true; // jeśli nie istnieje żadna krawędź z lub do tego wierzchołka
+    return true; // if there is no edge from or to this vertex
 }

@@ -5,7 +5,7 @@
 
 class PrimIncidenceMatrix {
 public:
-    static void run(IncidentMatrix* graph, int startVertex);
+    static void run(IncidentMatrix* graph, int startVertex, int endVertex); // Added endVertex parameter
 };
 
 #endif //PROJECT_AIZO_2_PRIMINCIDENCEMATRIX_H

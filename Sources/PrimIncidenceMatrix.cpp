@@ -14,7 +14,7 @@ public:
     }
 };
 
-void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
+void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVertex) {
     int vertices = graph->getVertices(); // Number of vertices
     int edges = graph->getEdges(); // Number of edges
     std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
@@ -30,6 +30,8 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
     while (!pq.empty()) {
         int u = pq.top().first; // Get the vertex with the minimum key
         pq.pop();
+
+        if (u == endVertex) break; // Stop if we reached the end vertex
 
         inMST[u] = true; // Add vertex to MST
 
@@ -49,8 +51,8 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
                 }
             }
 
-            // Update key and parent if a smaller weight is found
-            if (v != -1 && !inMST[v] && weight < key[v]) {
+            // Only consider vertices in the range [startVertex, endVertex]
+            if (v >= startVertex && v <= endVertex && !inMST[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
                 pq.push({v, key[v]});
@@ -58,10 +60,10 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex) {
         }
     }
 
-    // Print MST
-    std::cout << "Minimum Spanning Tree (Prim's Algorithm):" << std::endl;
-    for (int i = 0; i < vertices; ++i) {
-        if (parent[i] != -1) {
+    // Print MST paths from startVertex to endVertex
+    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    for (int i = startVertex; i <= endVertex; ++i) {
+        if (parent[i] != -1 && i != startVertex) {
             std::cout << parent[i] << " - " << i << " : " << key[i] << std::endl;
         }
     }

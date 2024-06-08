@@ -195,10 +195,12 @@ void Menu::handleMSTMenu() {
                 break;
             case 2:
                 if (undirectedWeightedIncidentMatrix) {
-                    int startVertex;
+                    int startVertex, endVertex;
                     std::cout << "Enter the start vertex: ";
                     std::cin >> startVertex;
-                    PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex);
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
                 } else {
                     std::cout << "No undirected weighted incidence matrix available." << std::endl;
                 }

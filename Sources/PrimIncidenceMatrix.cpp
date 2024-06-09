@@ -94,4 +94,3 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     // Replace the old matrix with the new one
     *graph = newIncidentMatrix;
 }
-

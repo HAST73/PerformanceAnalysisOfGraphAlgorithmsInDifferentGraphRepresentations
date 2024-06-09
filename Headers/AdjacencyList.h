@@ -13,6 +13,7 @@ public:
     void printList();
     int getVertices() const { return vertices; }
     const std::vector<std::list<std::pair<int, int>>>& getAdjList() const { return adjList; }
+    void clear();
 
 private:
     std::vector<std::list<std::pair<int, int>>> adjList;

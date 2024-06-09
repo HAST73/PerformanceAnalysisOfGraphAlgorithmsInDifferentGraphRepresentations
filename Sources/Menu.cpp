@@ -191,7 +191,17 @@ void Menu::handleMSTMenu() {
 
         switch (choice) {
             case 1:
-                // Call Prim's Algorithm using Adjacency List (assuming this function is implemented)
+                if (undirectedAdjacencyList) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    PrimAdjacencyList::run(undirectedAdjacencyList, startVertex, endVertex);
+                    handlePostMSTMenuList(startVertex, endVertex);
+                } else {
+                    std::cout << "No undirected adjacency list available." << std::endl;
+                }
                 break;
             case 2:
                 if (undirectedWeightedIncidentMatrix) {
@@ -201,7 +211,7 @@ void Menu::handleMSTMenu() {
                     std::cout << "Enter the end vertex: ";
                     std::cin >> endVertex;
                     PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
-                    handlePostMSTMenu(startVertex, endVertex);
+                    handlePostMSTMenuMatrix(startVertex, endVertex);
                 } else {
                     std::cout << "No undirected weighted incidence matrix available." << std::endl;
                 }
@@ -214,7 +224,7 @@ void Menu::handleMSTMenu() {
     } while (choice != 0);
 }
 
-void Menu::displayPostMSTMenu() {
+void Menu::displayPostMSTMenuMatrix() {
     std::cout << std::endl;
     std::cout << "=== POST MST MENU ===" << std::endl;
     std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
@@ -222,10 +232,18 @@ void Menu::displayPostMSTMenu() {
     std::cout << "Select an option: ";
 }
 
-void Menu::handlePostMSTMenu(int startVertex, int endVertex) {
+void Menu::displayPostMSTMenuList() {
+    std::cout << std::endl;
+    std::cout << "=== POST MST MENU ===" << std::endl;
+    std::cout << "1. Display new adjacency list (undirected)" << std::endl;
+    std::cout << "0. Back to main menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handlePostMSTMenuMatrix(int startVertex, int endVertex) {
     int choice;
     do {
-        displayPostMSTMenu();
+        displayPostMSTMenuMatrix();
         std::cin >> choice;
 
         switch (choice) {
@@ -233,6 +251,29 @@ void Menu::handlePostMSTMenu(int startVertex, int endVertex) {
                 if (undirectedWeightedIncidentMatrix) {
                     std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
                     undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);
+                } else {
+                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::handlePostMSTMenuList(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostMSTMenuList();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (undirectedAdjacencyList) {
+                    std::cout << "New Undirected Adjacency List:" << std::endl;
+                    undirectedAdjacencyList->printList();
                 } else {
                     std::cout << "No new undirected weighted incidence matrix available." << std::endl;
                 }

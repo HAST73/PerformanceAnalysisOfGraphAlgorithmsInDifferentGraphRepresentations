@@ -5,7 +5,7 @@
 
 class PrimAdjacencyList {
 public:
-    static void run(AdjacencyList* graph, int startVertex);
+    static void run(AdjacencyList* graph, int startVertex, int endVertex);
 };
 
 #endif //PROJECT_AIZO_2_PRIMADJACENCYLIST_H

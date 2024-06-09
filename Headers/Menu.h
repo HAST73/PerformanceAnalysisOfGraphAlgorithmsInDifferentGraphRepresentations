@@ -26,8 +26,11 @@ private:
     void displayMSTMenu();
     void handleMSTMenu();
 
-    void displayPostMSTMenu();
-    void handlePostMSTMenu(int startVertex, int endVertex);
+    void displayPostMSTMenuMatrix();
+    void handlePostMSTMenuMatrix(int startVertex, int endVertex);
+
+    void displayPostMSTMenuList();
+    void handlePostMSTMenuList(int startVertex, int endVertex);
 
     void displayFileContent();
     void generateRandomGraph();

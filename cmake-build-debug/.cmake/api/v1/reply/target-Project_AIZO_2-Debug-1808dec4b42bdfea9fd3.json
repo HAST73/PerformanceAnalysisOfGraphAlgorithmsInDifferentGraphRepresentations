@@ -62,7 +62,10 @@
 				7,
 				9,
 				11,
-				13
+				13,
+				15,
+				17,
+				19
 			]
 		}
 	],
@@ -106,7 +109,10 @@
 				7,
 				9,
 				11,
-				13
+				13,
+				15,
+				17,
+				19
 			]
 		},
 		{
@@ -119,7 +125,10 @@
 				8,
 				10,
 				12,
-				14
+				14,
+				16,
+				18,
+				20
 			]
 		}
 	],
@@ -206,6 +215,39 @@
 		{
 			"backtrace" : 1,
 			"path" : "Headers/PrimIncidenceMatrix.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Sources/KruskalAdjacencyList.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Headers/KruskalAdjacencyList.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Sources/KruskalIncidenceMatrix.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Headers/KruskalIncidenceMatrix.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Sources/DisjointSets.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Headers/DisjointSets.h",
 			"sourceGroupIndex" : 1
 		}
 	],

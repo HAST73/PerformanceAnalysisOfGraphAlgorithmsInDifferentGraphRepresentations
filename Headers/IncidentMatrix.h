@@ -13,10 +13,11 @@ public:
     int getVertices() const { return vertices; }
     int getEdges() const { return edges; }
     const std::vector<std::vector<int>>& getMatrix() const { return matrix; }
+    void initialize(int vertices, int edges);
+    void clear();  // Nowa metoda do czyszczenia macierzy
 
 private:
     std::vector<std::vector<int>> matrix; // Incident Matrix for unweighted graph
-    std::vector<std::vector<int>> weightedMatrix; // Incident Matrix for weighted graph
     int vertices;
     int edges;
     bool directed;

@@ -5,6 +5,8 @@
 #include "../Headers/IncidentMatrix.h"
 #include "../Headers/PrimAdjacencyList.h"
 #include "../Headers/PrimIncidenceMatrix.h"
+#include "../Headers/KruskalAdjacencyList.h"
+#include "../Headers/KruskalIncidenceMatrix.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -143,9 +145,9 @@ void Menu::handleGraphTypeMenu() {
 void Menu::displayAlgorithmMenu() {
     std::cout << std::endl;
     std::cout << "=== ALGORITHMS ===" << std::endl;
-    std::cout << "1. Minimum Spanning Tree Algorithms" << std::endl;
-    std::cout << "2. Shortest Path Algorithms" << std::endl;
-    std::cout << "3. Maximum Flow Algorithms" << std::endl;
+    std::cout << "1. Minimum Spanning Tree Algorithms (Prim and Kruskal)" << std::endl;
+    std::cout << "2. Shortest Path Algorithms (Dijkstry and Ford-Bellman)" << std::endl;
+    std::cout << "3. Maximum Flow Algorithms (Ford-Fulkerson)" << std::endl;
     std::cout << "0. Back to graph type menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -179,6 +181,8 @@ void Menu::displayMSTMenu() {
     std::cout << "=== MINIMUM SPANNING TREE ALGORITHMS ===" << std::endl;
     std::cout << "1. Prim's Algorithm (Adjacency List)" << std::endl;
     std::cout << "2. Prim's Algorithm (Incidence Matrix)" << std::endl;
+    std::cout << "3. Kruskal's Algorithm (Adjacency List)" << std::endl;
+    std::cout << "4. Kruskal's Algorithm (Incidence Matrix)" << std::endl;
     std::cout << "0. Back to algorithm menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -198,7 +202,7 @@ void Menu::handleMSTMenu() {
                     std::cout << "Enter the end vertex: ";
                     std::cin >> endVertex;
                     PrimAdjacencyList::run(undirectedAdjacencyList, startVertex, endVertex);
-                    handlePostMSTMenuList(startVertex, endVertex);
+                    handlePostMSTMenuListPrim(startVertex, endVertex);
                 } else {
                     std::cout << "No undirected adjacency list available." << std::endl;
                 }
@@ -211,20 +215,47 @@ void Menu::handleMSTMenu() {
                     std::cout << "Enter the end vertex: ";
                     std::cin >> endVertex;
                     PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
-                    handlePostMSTMenuMatrix(startVertex, endVertex);
+                    handlePostMSTMenuMatrixPrim(startVertex, endVertex);
                 } else {
                     std::cout << "No undirected weighted incidence matrix available." << std::endl;
                 }
                 break;
-            case 0:
+            case 3:
+                if (undirectedAdjacencyList) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    KruskalAdjacencyList::run(undirectedAdjacencyList, startVertex, endVertex, false);
+                    handlePostMSTMenuListKruskal(startVertex, endVertex);
+                } else {
+                    std::cout << "No undirected adjacency list available." << std::endl;
+                }
+                break;
+            case 4:
+                if (undirectedWeightedIncidentMatrix) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    KruskalIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
+                    handlePostMSTMenuMatrixKruskal(startVertex, endVertex);
+                } else {
+                    std::cout << "No undirected weighted incidence matrix available." << std::endl;
+                }
+                break;
+            case 5:
+                std::cout << "Returning to main menu." << std::endl;
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                std::cout << "Invalid choice. Please try again." << std::endl;
         }
-    } while (choice != 0);
+    } while (choice != 5);
 }
 
-void Menu::displayPostMSTMenuMatrix() {
+void Menu::displayPostMSTMenuMatrixPrim() {
     std::cout << std::endl;
     std::cout << "=== POST MST MENU ===" << std::endl;
     std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
@@ -232,7 +263,7 @@ void Menu::displayPostMSTMenuMatrix() {
     std::cout << "Select an option: ";
 }
 
-void Menu::displayPostMSTMenuList() {
+void Menu::displayPostMSTMenuListPrim() {
     std::cout << std::endl;
     std::cout << "=== POST MST MENU ===" << std::endl;
     std::cout << "1. Display new adjacency list (undirected)" << std::endl;
@@ -240,10 +271,26 @@ void Menu::displayPostMSTMenuList() {
     std::cout << "Select an option: ";
 }
 
-void Menu::handlePostMSTMenuMatrix(int startVertex, int endVertex) {
+void Menu::displayPostMSTMenuMatrixKruskal() {
+    std::cout << std::endl;
+    std::cout << "=== POST MST MENU ===" << std::endl;
+    std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
+    std::cout << "0. Back to main menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::displayPostMSTMenuListKruskal() {
+    std::cout << std::endl;
+    std::cout << "=== POST MST MENU ===" << std::endl;
+    std::cout << "1. Display new adjacency list (undirected)" << std::endl;
+    std::cout << "0. Back to main menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handlePostMSTMenuMatrixKruskal(int startVertex, int endVertex) {
     int choice;
     do {
-        displayPostMSTMenuMatrix();
+        displayPostMSTMenuMatrixKruskal();
         std::cin >> choice;
 
         switch (choice) {
@@ -263,10 +310,56 @@ void Menu::handlePostMSTMenuMatrix(int startVertex, int endVertex) {
     } while (choice != 0);
 }
 
-void Menu::handlePostMSTMenuList(int startVertex, int endVertex) {
+void Menu::handlePostMSTMenuListKruskal(int startVertex, int endVertex) {
     int choice;
     do {
-        displayPostMSTMenuList();
+        displayPostMSTMenuListKruskal();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (undirectedAdjacencyList) {
+                    std::cout << "New Undirected Adjacency List:" << std::endl;
+                    undirectedAdjacencyList->printList();
+                } else {
+                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::handlePostMSTMenuMatrixPrim(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostMSTMenuMatrixPrim();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (undirectedWeightedIncidentMatrix) {
+                    std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
+                    undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);
+                } else {
+                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::handlePostMSTMenuListPrim(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostMSTMenuListPrim();
         std::cin >> choice;
 
         switch (choice) {

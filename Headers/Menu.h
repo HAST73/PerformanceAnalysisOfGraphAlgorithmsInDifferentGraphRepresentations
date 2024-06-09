@@ -1,9 +1,9 @@
 #ifndef PROJECT_AIZO_2_MENU_H
 #define PROJECT_AIZO_2_MENU_H
 
-#include "IncidentMatrix.h"
-#include "AdjacencyList.h"
-#include "PrimIncidenceMatrix.h"
+#include "../Headers/IncidentMatrix.h"
+#include "../Headers/AdjacencyList.h"
+#include "../Headers/PrimIncidenceMatrix.h"
 #include <vector>
 #include <string>
 

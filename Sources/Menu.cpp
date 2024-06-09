@@ -217,8 +217,7 @@ void Menu::handleMSTMenu() {
 void Menu::displayPostMSTMenu() {
     std::cout << std::endl;
     std::cout << "=== POST MST MENU ===" << std::endl;
-    std::cout << "1. Display new adjacency list (undirected)" << std::endl;
-    std::cout << "2. Display new weighted incidence matrix (undirected)" << std::endl;
+    std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
     std::cout << "0. Back to main menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -231,9 +230,6 @@ void Menu::handlePostMSTMenu(int startVertex, int endVertex) {
 
         switch (choice) {
             case 1:
-
-                break;
-            case 2:
                 if (undirectedWeightedIncidentMatrix) {
                     std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
                     undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);

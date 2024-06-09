@@ -142,12 +142,16 @@ void Menu::handleGraphTypeMenu() {
     } while (choice != 0);
 }
 
-void Menu::displayAlgorithmMenu() {
+void Menu::displayAlgorithmMenu(bool isDirected) {
     std::cout << std::endl;
     std::cout << "=== ALGORITHMS ===" << std::endl;
-    std::cout << "1. Minimum Spanning Tree Algorithms (Prim and Kruskal)" << std::endl;
-    std::cout << "2. Shortest Path Algorithms (Dijkstry and Ford-Bellman)" << std::endl;
-    std::cout << "3. Maximum Flow Algorithms (Ford-Fulkerson)" << std::endl;
+    if (!isDirected) {
+        std::cout << "1. Minimum Spanning Tree Algorithms (Prim and Kruskal)" << std::endl;
+    }
+    if (isDirected) {
+        std::cout << "2. Shortest Path Algorithms (Dijkstra and Ford-Bellman)" << std::endl;
+        std::cout << "3. Maximum Flow Algorithms (Ford-Fulkerson)" << std::endl;
+    }
     std::cout << "0. Back to graph type menu" << std::endl;
     std::cout << "Select an option: ";
 }
@@ -155,25 +159,60 @@ void Menu::displayAlgorithmMenu() {
 void Menu::handleAlgorithmMenu(bool isDirected) {
     int choice;
     do {
-        displayAlgorithmMenu();
+        displayAlgorithmMenu(isDirected);
+        std::cin >> choice;
+
+        if (!isDirected && choice == 1) {
+            handleMSTMenu();
+        } else if (isDirected && choice == 2) {
+            handleSPMenu();
+        } else if (isDirected && choice == 3) {
+            // Call Maximum Flow Algorithm Menu Function
+        } else if (choice == 0) {
+            break;
+        } else {
+            std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displaySPMenu() {
+    std::cout << std::endl;
+    std::cout << "=== SHORTEST PATH ALGORITHMS ===" << std::endl;
+    std::cout << "1. Dijkstra's Algorithm (Adjacency List)" << std::endl;
+    std::cout << "2. Dijkstra's Algorithm (Incidence Matrix)" << std::endl;
+    std::cout << "3. Ford-Bellman's Algorithm (Adjacency List)" << std::endl;
+    std::cout << "4. Ford-Bellman's Algorithm (Incidence Matrix)" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handleSPMenu() {
+    int choice;
+    do {
+        displaySPMenu();
         std::cin >> choice;
 
         switch (choice) {
             case 1:
-                handleMSTMenu();
+
                 break;
             case 2:
-                // Call Shortest Path Algorithm Menu Function
+
                 break;
             case 3:
-                // Call Maximum Flow Algorithm Menu Function
+
                 break;
-            case 0:
+            case 4:
+
+                break;
+            case 5:
+                std::cout << "Returning to main menu." << std::endl;
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                std::cout << "Invalid choice. Please try again." << std::endl;
         }
-    } while (choice != 0);
+    } while (choice != 5);
 }
 
 void Menu::displayMSTMenu() {

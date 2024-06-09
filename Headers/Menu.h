@@ -20,11 +20,14 @@ private:
     void displayGraphTypeMenu();
     void handleGraphTypeMenu();
 
-    void displayAlgorithmMenu();
+    void displayAlgorithmMenu(bool isDirected);
     void handleAlgorithmMenu(bool isDirected);
 
     void displayMSTMenu();
     void handleMSTMenu();
+
+    void displaySPMenu();
+    void handleSPMenu();
 
     void displayPostMSTMenuMatrixPrim();
     void handlePostMSTMenuMatrixPrim(int startVertex, int endVertex);

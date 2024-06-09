@@ -80,3 +80,6 @@
 17	642	7396705673673107	CMakeFiles/Project_AIZO_2.dir/Sources/IncidentMatrix.cpp.obj	5215caed7bfeb03
 28	694	7396705674193215	CMakeFiles/Project_AIZO_2.dir/Sources/PrimIncidenceMatrix.cpp.obj	dbc02a13e9db927e
 694	972	7396705676913838	Project_AIZO_2.exe	fb15cafb8dd2a29a
+12	412	7396716336945874	CMakeFiles/Project_AIZO_2.dir/Sources/main.cpp.obj	7e56df756a7b8140
+3	540	7396716338226162	CMakeFiles/Project_AIZO_2.dir/Sources/Menu.cpp.obj	ad613c12c4d53c86
+540	828	7396716341055312	Project_AIZO_2.exe	fb15cafb8dd2a29a

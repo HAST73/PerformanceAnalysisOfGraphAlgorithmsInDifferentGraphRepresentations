@@ -1,8 +1,11 @@
 #ifndef PROJECT_AIZO_2_MENU_H
 #define PROJECT_AIZO_2_MENU_H
 
-#include "../Headers/IncidentMatrix.h"
-#include "../Headers/AdjacencyList.h"
+#include "IncidentMatrix.h"
+#include "AdjacencyList.h"
+#include "PrimIncidenceMatrix.h"
+#include <vector>
+#include <string>
 
 class Menu {
 public:
@@ -23,20 +26,23 @@ private:
     void displayMSTMenu();
     void handleMSTMenu();
 
+    void displayPostMSTMenu();
+    void handlePostMSTMenu(int startVertex, int endVertex);
+
     void displayFileContent();
     void generateRandomGraph();
     void processSelectFromLoadedFile();
 
     void displayIncidenceMatrix(bool directed);
-    void displayWeightedIncidenceMatrix(bool directed); // New function
+    void displayWeightedIncidenceMatrix(bool directed);
     void displayAdjacencyList(bool directed);
 
     IncidentMatrix* directedIncidentMatrix = nullptr;
     IncidentMatrix* undirectedIncidentMatrix = nullptr;
-    IncidentMatrix* directedWeightedIncidentMatrix = nullptr; // New variable
-    IncidentMatrix* undirectedWeightedIncidentMatrix = nullptr; // New variable
+    IncidentMatrix* directedWeightedIncidentMatrix = nullptr;
+    IncidentMatrix* undirectedWeightedIncidentMatrix = nullptr;
     AdjacencyList* directedAdjacencyList = nullptr;
     AdjacencyList* undirectedAdjacencyList = nullptr;
 };
 
-#endif //PROJECT_AIZO_2_MENU_H
+#endif // PROJECT_AIZO_2_MENU_H

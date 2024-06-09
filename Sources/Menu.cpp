@@ -62,8 +62,8 @@ void Menu::displayFileMenu() {
     std::cout << "1. Display file content" << std::endl;
     std::cout << "2. Display incidence matrix (directed)" << std::endl;
     std::cout << "3. Display incidence matrix (undirected)" << std::endl;
-    std::cout << "4. Display weighted incidence matrix (directed)" << std::endl; // New option
-    std::cout << "5. Display weighted incidence matrix (undirected)" << std::endl; // New option
+    std::cout << "4. Display weighted incidence matrix (directed)" << std::endl;
+    std::cout << "5. Display weighted incidence matrix (undirected)" << std::endl;
     std::cout << "6. Display adjacency list (directed)" << std::endl;
     std::cout << "7. Display adjacency list (undirected)" << std::endl;
     std::cout << "8. Select graph type for algorithms" << std::endl;
@@ -201,6 +201,7 @@ void Menu::handleMSTMenu() {
                     std::cout << "Enter the end vertex: ";
                     std::cin >> endVertex;
                     PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
+                    handlePostMSTMenu(startVertex, endVertex);
                 } else {
                     std::cout << "No undirected weighted incidence matrix available." << std::endl;
                 }
@@ -213,6 +214,46 @@ void Menu::handleMSTMenu() {
     } while (choice != 0);
 }
 
+void Menu::displayPostMSTMenu() {
+    std::cout << std::endl;
+    std::cout << "=== POST MST MENU ===" << std::endl;
+    std::cout << "1. Display new incidence matrix (unweighted)" << std::endl;
+    std::cout << "2. Display new weighted incidence matrix (undirected)" << std::endl;
+    std::cout << "0. Back to main menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::handlePostMSTMenu(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostMSTMenu();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Uncomment and modify if you have the undirectedIncidentMatrix variable
+                // if (undirectedIncidentMatrix) {
+                //     std::cout << "New Unweighted Incidence Matrix:" << std::endl;
+                //     undirectedIncidentMatrix->printMatrix(startVertex, endVertex);
+                // } else {
+                //     std::cout << "No new unweighted incidence matrix available." << std::endl;
+                // }
+                break;
+            case 2:
+                if (undirectedWeightedIncidentMatrix) {
+                    std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
+                    undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);
+                } else {
+                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
 
 void Menu::displayFileContent() {
     std::cout << "=== FILE CONTENT ===" << std::endl;

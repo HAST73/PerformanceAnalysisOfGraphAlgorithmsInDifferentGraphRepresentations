@@ -6,7 +6,6 @@
 #include <queue>
 #include <utility>
 
-// Define a comparator for the priority queue
 class Compare {
 public:
     bool operator()(std::pair<int, int> a, std::pair<int, int> b) {
@@ -20,6 +19,7 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
     std::vector<int> parent(vertices, -1); // Stores the MST
     std::vector<bool> inMST(vertices, false); // Keeps track of vertices included in MST
+    std::vector<std::pair<int, int>> mstEdges; // Stores the edges in MST
     int totalCost = 0; // Total cost of MST
 
     key[startVertex] = 0; // Start from the startVertex
@@ -31,8 +31,6 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     while (!pq.empty()) {
         int u = pq.top().first; // Get the vertex with the minimum key
         pq.pop();
-
-        if (u == endVertex) break; // Stop if we reached the end vertex
 
         inMST[u] = true; // Add vertex to MST
 
@@ -46,14 +44,14 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
                 for (int j = 0; j < vertices; ++j) {
                     if (j != u && matrix[j][e] != 0) {
                         v = j;
-                        weight = matrix[u][e];
+                        weight = abs(matrix[u][e]);
                         break;
                     }
                 }
             }
 
             // Only consider vertices in the range [startVertex, endVertex]
-            if (v >= startVertex && v <= endVertex && !inMST[v] && weight < key[v]) {
+            if (v != -1 && v >= startVertex && v <= endVertex && !inMST[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
                 pq.push({v, key[v]});
@@ -61,15 +59,39 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
         }
     }
 
-    // Print MST paths from startVertex to endVertex and calculate total cost
-    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    // Collect the MST edges
     for (int i = startVertex; i <= endVertex; ++i) {
         if (parent[i] != -1 && i != startVertex) {
-            std::cout << parent[i] << " - " << i << " : " << key[i] << std::endl;
-            totalCost += key[i]; // Add edge weight to total cost
+            mstEdges.push_back({parent[i], i});
         }
+    }
+
+    // Print MST paths from startVertex to endVertex and calculate total cost
+    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    for (const auto& edge : mstEdges) {
+        int u = edge.first;
+        int v = edge.second;
+        int weight = key[v];
+        std::cout << u << " - " << v << " : " << weight << std::endl;
+        totalCost += weight; // Add edge weight to total cost
     }
 
     // Print the total cost of MST
     std::cout << "Total cost of MST: " << totalCost << std::endl;
+
+    // Create a new incidence matrix for the MST
+    int newEdges = mstEdges.size();
+    int newVertices = endVertex - startVertex + 1;
+    IncidentMatrix newIncidentMatrix(newVertices, newEdges, false);
+
+    for (int i = 0; i < mstEdges.size(); ++i) {
+        int u = mstEdges[i].first - startVertex;
+        int v = mstEdges[i].second - startVertex;
+        int weight = key[mstEdges[i].second];
+        newIncidentMatrix.addEdge(u, v, i, weight);
+    }
+
+    // Replace the old matrix with the new one
+    *graph = newIncidentMatrix;
 }
+

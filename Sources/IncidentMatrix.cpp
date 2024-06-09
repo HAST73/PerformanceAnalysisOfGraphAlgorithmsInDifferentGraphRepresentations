@@ -35,3 +35,21 @@ void IncidentMatrix::printMatrix() {
         std::cout << std::endl;
     }
 }
+
+void IncidentMatrix::printMatrix(int startVertex, int endVertex) {
+    // Print column headers
+    std::cout << "   ";
+    for (int j = 0; j < edges; ++j) {
+        std::cout << std::setw(2) << j << " ";
+    }
+    std::cout << std::endl;
+
+    // Print rows with row indices based on the given range
+    for (int i = startVertex; i <= endVertex; ++i) {
+        std::cout << std::setw(2) << i << " "; // Print the original vertex index
+        for (int j = 0; j < edges; ++j) {
+            std::cout << std::setw(2) << matrix[i - startVertex][j] << " "; // Adjust index for proper alignment
+        }
+        std::cout << std::endl;
+    }
+}

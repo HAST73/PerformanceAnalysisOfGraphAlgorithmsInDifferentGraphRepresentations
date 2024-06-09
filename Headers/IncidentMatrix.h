@@ -9,6 +9,7 @@ public:
     IncidentMatrix(int vertices, int edges, bool directed);
     void addEdge(int v1, int v2, int edgeIndex, int weight = 1); // Add weight parameter
     void printMatrix();
+    void printMatrix(int startVertex, int endVertex);
     int getVertices() const { return vertices; }
     int getEdges() const { return edges; }
     const std::vector<std::vector<int>>& getMatrix() const { return matrix; }

@@ -35,10 +35,25 @@ void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex
         }
     }
 
-    graph->clear();
-    for (int i = 0; i < totalVertices; ++i) {
-        if (parent[i] != -1 && i >= startVertex && i <= endVertex) {
-            graph->addEdge(parent[i], i, key[i], false);
+    std::vector<std::pair<int, int>> mstEdges;
+    int totalCost = 0;
+
+    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    for (int i = startVertex; i <= endVertex; ++i) {
+        if (parent[i] != -1) {
+            mstEdges.push_back({parent[i], i});
+            int weight = key[i];
+            std::cout << parent[i] << " - " << i << " : " << weight << std::endl;
+            totalCost += weight;
         }
+    }
+
+    std::cout << "Total cost of MST: " << totalCost << std::endl;
+
+    // Clear the old graph and add MST edges
+    graph->clear();
+    for (const auto& [u, v] : mstEdges) {
+        int weight = key[v];
+        graph->addEdge(u, v, weight, false);
     }
 }

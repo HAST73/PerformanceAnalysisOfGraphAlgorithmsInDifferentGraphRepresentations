@@ -37,6 +37,12 @@ private:
     void handlePostSPMenuMatrixDijkstra(int startVertex, int endVertex);
     void displayPostSPMenuMatrixDijkstra();
 
+    void handlePostSPMenuListBellmanFord(int startVertex, int endVertex);
+    void displayPostSPMenuListBellmanFord();
+
+    void handlePostSPMenuMatrixBellmanFord(int startVertex, int endVertex);
+    void displayPostSPMenuMatrixBellmanFord();
+
     void displayPostMSTMenuMatrixPrim();
     void handlePostMSTMenuMatrixPrim(int startVertex, int endVertex);
 

@@ -7,6 +7,8 @@
 #include "../Headers/PrimIncidenceMatrix.h"
 #include "../Headers/KruskalAdjacencyList.h"
 #include "../Headers/KruskalIncidenceMatrix.h"
+#include "../Headers/BellmanFordAdjacencyList.h"
+#include "../Headers/BellmanFordIncidenceMatrix.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -223,10 +225,38 @@ void Menu::handleSPMenu() {
                 }
                 break;
             case 3:
-                // Handle Ford-Bellman's Algorithm (Adjacency List)
+                if (directedAdjacencyList) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    BellmanFordAdjacencyList bellmanford(*directedAdjacencyList);
+                    if (bellmanford.findShortestPath(startVertex, endVertex)) {
+                        handlePostSPMenuListBellmanFord(startVertex, endVertex);
+                    } else {
+                        std::cout << "Negative weight cycle detected!" << std::endl;
+                    }
+                } else {
+                    std::cout << "No directed adjacency list available." << std::endl;
+                }
                 break;
             case 4:
-                // Handle Ford-Bellman's Algorithm (Incidence Matrix)
+                if (directedWeightedIncidentMatrix) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    BellmanFordIncidenceMatrix bellmanford(*directedWeightedIncidentMatrix);
+                    if (bellmanford.findShortestPath(startVertex, endVertex)) {
+                        handlePostSPMenuMatrixBellmanFord(startVertex, endVertex);
+                    } else {
+                        std::cout << "Negative weight cycle detected!" << std::endl;
+                    }
+                } else {
+                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                }
                 break;
             case 0:
                 std::cout << "Returning to main menu." << std::endl;
@@ -235,6 +265,74 @@ void Menu::handleSPMenu() {
                 std::cout << "Invalid choice. Please try again." << std::endl;
         }
     } while (choice != 0);
+}
+
+void Menu::handlePostSPMenuListBellmanFord(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostSPMenuListBellmanFord();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                std::cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+                if (directedAdjacencyList) {
+                    BellmanFordAdjacencyList bellmanford(*directedAdjacencyList);
+                    bellmanford.findShortestPath(startVertex, endVertex);
+                    directedAdjacencyList->printList();
+                } else {
+                    std::cout << "Directed Adjacency List not loaded!" << std::endl;
+                }
+                break;
+            case 0:
+                std::cout << "Returning to shortest path menu." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::handlePostSPMenuMatrixBellmanFord(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostSPMenuMatrixBellmanFord();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                std::cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+                if (directedWeightedIncidentMatrix) {
+                    BellmanFordIncidenceMatrix bellmanford(*directedWeightedIncidentMatrix);
+                    bellmanford.findShortestPath(startVertex, endVertex);
+                    directedWeightedIncidentMatrix->printMatrix();
+                } else {
+                    std::cout << "Directed Incident Matrix not loaded!" << std::endl;
+                }
+                break;
+            case 0:
+                std::cout << "Returning to shortest path menu." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displayPostSPMenuListBellmanFord() {
+    std::cout << std::endl;
+    std::cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << std::endl;
+    std::cout << "1. Display shortest path result" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::displayPostSPMenuMatrixBellmanFord() {
+    std::cout << std::endl;
+    std::cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << std::endl;
+    std::cout << "1. Display shortest path result" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
 }
 
 void Menu::handlePostSPMenuListDijkstra(int startVertex, int endVertex) {

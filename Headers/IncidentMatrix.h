@@ -15,6 +15,7 @@ public:
     const std::vector<std::vector<int>>& getMatrix() const { return matrix; }
     void initialize(int vertices, int edges);
     void clear();  // Nowa metoda do czyszczenia macierzy
+    void updateMatrixForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev);
 
 private:
     std::vector<std::vector<int>> matrix; // Incident Matrix for unweighted graph

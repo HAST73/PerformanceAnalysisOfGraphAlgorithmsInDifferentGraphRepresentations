@@ -195,24 +195,110 @@ void Menu::handleSPMenu() {
 
         switch (choice) {
             case 1:
-
+                if (directedAdjacencyList) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    DijkstraAdjacencyList dijkstra(*directedAdjacencyList);
+                    dijkstra.findShortestPath(startVertex, endVertex);
+                    handlePostSPMenuListDijkstra(startVertex, endVertex);
+                } else {
+                    std::cout << "No directed adjacency list available." << std::endl;
+                }
                 break;
             case 2:
-
+                if (directedWeightedIncidentMatrix) {
+                    int startVertex, endVertex;
+                    std::cout << "Enter the start vertex: ";
+                    std::cin >> startVertex;
+                    std::cout << "Enter the end vertex: ";
+                    std::cin >> endVertex;
+                    DijkstraIncidenceMatrix dijkstra(*directedWeightedIncidentMatrix);
+                    dijkstra.findShortestPath(startVertex, endVertex);
+                    handlePostSPMenuMatrixDijkstra(startVertex, endVertex);
+                } else {
+                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                }
                 break;
             case 3:
-
+                // Handle Ford-Bellman's Algorithm (Adjacency List)
                 break;
             case 4:
-
+                // Handle Ford-Bellman's Algorithm (Incidence Matrix)
                 break;
-            case 5:
+            case 0:
                 std::cout << "Returning to main menu." << std::endl;
                 break;
             default:
                 std::cout << "Invalid choice. Please try again." << std::endl;
         }
-    } while (choice != 5);
+    } while (choice != 0);
+}
+
+void Menu::handlePostSPMenuListDijkstra(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostSPMenuListDijkstra();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (directedAdjacencyList) {
+                    DijkstraAdjacencyList dijkstra(*directedAdjacencyList);
+                    dijkstra.findShortestPath(startVertex, endVertex);
+                    directedAdjacencyList->printList();
+                } else {
+                    std::cout << "Directed Adjacency List not loaded!" << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::handlePostSPMenuMatrixDijkstra(int startVertex, int endVertex) {
+    int choice;
+    do {
+        displayPostSPMenuMatrixDijkstra();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                if (directedWeightedIncidentMatrix) {
+                    DijkstraIncidenceMatrix dijkstra(*directedWeightedIncidentMatrix);
+                    dijkstra.findShortestPath(startVertex, endVertex);
+                    directedWeightedIncidentMatrix->printMatrix();
+                } else {
+                    std::cout << "Directed Incident Matrix not loaded!" << std::endl;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Invalid option, try again." << std::endl;
+        }
+    } while (choice != 0);
+}
+
+void Menu::displayPostSPMenuListDijkstra() {
+    std::cout << std::endl;
+    std::cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << std::endl;
+    std::cout << "1. Display shortest path result" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
+}
+
+void Menu::displayPostSPMenuMatrixDijkstra() {
+    std::cout << std::endl;
+    std::cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << std::endl;
+    std::cout << "1. Display shortest path result" << std::endl;
+    std::cout << "0. Back to algorithm menu" << std::endl;
+    std::cout << "Select an option: ";
 }
 
 void Menu::displayMSTMenu() {

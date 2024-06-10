@@ -39,3 +39,13 @@ void AdjacencyList::clear() {
         edges.clear();
     }
 }
+
+void AdjacencyList::updateListForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev) {
+    // Clear the current adjacency list and rebuild it based on the shortest paths
+    clear();
+    for (int i = 0; i < vertices; ++i) {
+        if (prev[i] != -1) {
+            addEdge(prev[i], i, dist[i] - dist[prev[i]], true);
+        }
+    }
+}

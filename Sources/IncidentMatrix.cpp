@@ -61,3 +61,51 @@ void IncidentMatrix::clear() {
         std::fill(row.begin(), row.end(), 0);
     }
 }
+
+void IncidentMatrix::updateMatrixForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev) {
+    // Clear the existing matrix
+    clear();
+
+    // Determine the number of edges used in the shortest path
+    int usedEdges = 0;
+    for (int i = 0; i < dist.size(); ++i) {
+        if (prev[i] != -1) {
+            ++usedEdges;
+        }
+    }
+
+    // Reinitialize the matrix with reduced columns based on the used edges
+    initialize(vertices, usedEdges);
+
+    // Populate the matrix with edge weights from Dijkstra's algorithm
+    int edgeIndex = 0;
+    for (int i = 0; i < vertices; ++i) {
+        if (prev[i] != -1) {
+            addEdge(prev[i], i, edgeIndex++, dist[i] - dist[prev[i]]);
+        }
+    }
+
+    // Remove columns containing only zeros and without any rows
+    if (!matrix.empty()) {
+        int numRows = matrix.size();
+        int numCols = matrix[0].size();
+        for (int j = numCols - 1; j >= 0; --j) {
+            bool isZeroColumn = true;
+            for (int i = 0; i < numRows; ++i) {
+                if (matrix[i][j] != 0) {
+                    isZeroColumn = false;
+                    break;
+                }
+            }
+            if (isZeroColumn && numRows == vertices) {
+                for (int i = 0; i < numRows; ++i) {
+                    matrix[i].erase(matrix[i].begin() + j);
+                }
+            }
+        }
+    }
+}
+
+
+
+

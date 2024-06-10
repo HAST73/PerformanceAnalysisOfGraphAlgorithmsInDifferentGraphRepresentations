@@ -4,6 +4,8 @@
 #include "../Headers/IncidentMatrix.h"
 #include "../Headers/AdjacencyList.h"
 #include "../Headers/PrimIncidenceMatrix.h"
+#include "../Headers/DijkstraAdjacencyList.h"
+#include "../Headers/DijkstraIncidenceMatrix.h"
 #include <vector>
 #include <string>
 
@@ -28,6 +30,12 @@ private:
 
     void displaySPMenu();
     void handleSPMenu();
+
+    void handlePostSPMenuListDijkstra(int startVertex, int endVertex);
+    void displayPostSPMenuListDijkstra();
+
+    void handlePostSPMenuMatrixDijkstra(int startVertex, int endVertex);
+    void displayPostSPMenuMatrixDijkstra();
 
     void displayPostMSTMenuMatrixPrim();
     void handlePostMSTMenuMatrixPrim(int startVertex, int endVertex);

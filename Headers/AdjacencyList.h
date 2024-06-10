@@ -14,6 +14,7 @@ public:
     int getVertices() const { return vertices; }
     const std::vector<std::list<std::pair<int, int>>>& getAdjList() const { return adjList; }
     void clear();
+    void updateListForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev);
 
 private:
     std::vector<std::list<std::pair<int, int>>> adjList;

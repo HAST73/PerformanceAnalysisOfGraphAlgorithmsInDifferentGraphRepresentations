@@ -1,7 +1,7 @@
 #include "../Headers/IncidentMatrix.h"
 #include <iostream>
 #include <iomanip>
-#include <vector>
+#include <algorithm>
 
 IncidentMatrix::IncidentMatrix(int vertices, int edges, bool directed)
         : vertices(vertices), edges(edges), directed(directed) {
@@ -19,32 +19,50 @@ void IncidentMatrix::addEdge(int v1, int v2, int edgeIndex, int weight) {
 }
 
 void IncidentMatrix::printMatrix() {
-    std::cout << "   ";
-    for (int j = 0; j < edges; ++j) {
-        std::cout << std::setw(2) << j << " ";
-    }
-    std::cout << std::endl;
+    int maxWidth = 10; // Set a more practical maximum width for each line
+    int numChunks = (edges + maxWidth - 1) / maxWidth; // Calculate number of chunks
 
-    for (int i = 0; i < vertices; ++i) {
-        std::cout << std::setw(2) << i << " ";
-        for (const auto& val : matrix[i]) {
-            std::cout << std::setw(2) << val << " ";
+    for (int chunk = 0; chunk < numChunks; ++chunk) {
+        int startEdge = chunk * maxWidth;
+        int endEdge = std::min(startEdge + maxWidth, edges);
+
+        std::cout << "   ";
+        for (int j = startEdge; j < endEdge; ++j) {
+            std::cout << std::setw(3) << j << " "; // Adjusted width to 3 for better spacing
+        }
+        std::cout << std::endl;
+
+        for (int i = 0; i < vertices; ++i) {
+            std::cout << std::setw(2) << i << " ";
+            for (int j = startEdge; j < endEdge; ++j) {
+                std::cout << std::setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
+            }
+            std::cout << std::endl;
         }
         std::cout << std::endl;
     }
 }
 
 void IncidentMatrix::printMatrix(int startVertex, int endVertex) {
-    std::cout << "   ";
-    for (int j = 0; j < edges; ++j) {
-        std::cout << std::setw(2) << j << " ";
-    }
-    std::cout << std::endl;
+    int maxWidth = 10; // Set a more practical maximum width for each line
+    int numChunks = (edges + maxWidth - 1) / maxWidth; // Calculate number of chunks
 
-    for (int i = startVertex; i <= endVertex; ++i) {
-        std::cout << std::setw(2) << i << " ";
-        for (int j = 0; j < edges; ++j) {
-            std::cout << std::setw(2) << matrix[i - startVertex][j] << " ";
+    for (int chunk = 0; chunk < numChunks; ++chunk) {
+        int startEdge = chunk * maxWidth;
+        int endEdge = std::min(startEdge + maxWidth, edges);
+
+        std::cout << "   ";
+        for (int j = startEdge; j < endEdge; ++j) {
+            std::cout << std::setw(3) << j << " "; // Adjusted width to 3 for better spacing
+        }
+        std::cout << std::endl;
+
+        for (int i = startVertex; i <= endVertex; ++i) {
+            std::cout << std::setw(2) << i << " ";
+            for (int j = startEdge; j < endEdge; ++j) {
+                std::cout << std::setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
+            }
+            std::cout << std::endl;
         }
         std::cout << std::endl;
     }
@@ -63,10 +81,7 @@ void IncidentMatrix::clear() {
 }
 
 void IncidentMatrix::updateMatrixForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev) {
-    // Clear the existing matrix
     clear();
-
-    // Determine the number of edges used in the shortest path
     int usedEdges = 0;
     for (int i = 0; i < dist.size(); ++i) {
         if (prev[i] != -1) {
@@ -74,43 +89,17 @@ void IncidentMatrix::updateMatrixForDijkstra(const std::vector<int>& dist, const
         }
     }
 
-    // Reinitialize the matrix with reduced columns based on the used edges
     initialize(vertices, usedEdges);
-
-    // Populate the matrix with edge weights from Dijkstra's algorithm
     int edgeIndex = 0;
     for (int i = 0; i < vertices; ++i) {
         if (prev[i] != -1) {
             addEdge(prev[i], i, edgeIndex++, dist[i] - dist[prev[i]]);
-        }
-    }
-
-    // Remove columns containing only zeros and without any rows
-    if (!matrix.empty()) {
-        int numRows = matrix.size();
-        int numCols = matrix[0].size();
-        for (int j = numCols - 1; j >= 0; --j) {
-            bool isZeroColumn = true;
-            for (int i = 0; i < numRows; ++i) {
-                if (matrix[i][j] != 0) {
-                    isZeroColumn = false;
-                    break;
-                }
-            }
-            if (isZeroColumn && numRows == vertices) {
-                for (int i = 0; i < numRows; ++i) {
-                    matrix[i].erase(matrix[i].begin() + j);
-                }
-            }
         }
     }
 }
 
 void IncidentMatrix::updateMatrixForBellmanFord(const std::vector<int>& dist, const std::vector<int>& prev) {
-    // Clear the existing matrix
     clear();
-
-    // Determine the number of edges used in the shortest path
     int usedEdges = 0;
     for (int i = 0; i < dist.size(); ++i) {
         if (prev[i] != -1) {
@@ -118,39 +107,11 @@ void IncidentMatrix::updateMatrixForBellmanFord(const std::vector<int>& dist, co
         }
     }
 
-    // Reinitialize the matrix with reduced columns based on the used edges
     initialize(vertices, usedEdges);
-
-    // Populate the matrix with edge weights from Bellman-Ford's algorithm
     int edgeIndex = 0;
     for (int i = 0; i < vertices; ++i) {
         if (prev[i] != -1) {
             addEdge(prev[i], i, edgeIndex++, dist[i] - dist[prev[i]]);
         }
     }
-
-    // Remove columns containing only zeros and without any rows
-    if (!matrix.empty()) {
-        int numRows = matrix.size();
-        int numCols = matrix[0].size();
-        for (int j = numCols - 1; j >= 0; --j) {
-            bool isZeroColumn = true;
-            for (int i = 0; i < numRows; ++i) {
-                if (matrix[i][j] != 0) {
-                    isZeroColumn = false;
-                    break;
-                }
-            }
-            if (isZeroColumn && numRows == vertices) {
-                for (int i = 0; i < numRows; ++i) {
-                    matrix[i].erase(matrix[i].begin() + j);
-                }
-            }
-        }
-    }
 }
-
-
-
-
-

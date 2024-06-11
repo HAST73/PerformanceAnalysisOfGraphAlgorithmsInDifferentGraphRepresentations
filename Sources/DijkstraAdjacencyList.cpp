@@ -4,11 +4,14 @@
 #include <limits>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
 DijkstraAdjacencyList::DijkstraAdjacencyList(const AdjacencyList& adjList)
         : adjList(adjList) {}
 
 void DijkstraAdjacencyList::findShortestPath(int startVertex, int endVertex) {
+//    auto startTime = std::chrono::high_resolution_clock::now();
+
     int vertices = adjList.getVertices();
     std::vector<int> dist(vertices, std::numeric_limits<int>::max());
     std::vector<int> prev(vertices, -1);
@@ -34,6 +37,9 @@ void DijkstraAdjacencyList::findShortestPath(int startVertex, int endVertex) {
             }
         }
     }
+//
+//    auto endTime = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
 
     if (dist[endVertex] == std::numeric_limits<int>::max()) {
         std::cout << "No path from " << startVertex << " to " << endVertex << std::endl;
@@ -52,7 +58,9 @@ void DijkstraAdjacencyList::findShortestPath(int startVertex, int endVertex) {
         std::cout << path[i];
     }
     std::cout << " with total weight " << dist[endVertex] << std::endl;
+//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
 
     // Update the adjacency list with the shortest path information
     const_cast<AdjacencyList&>(adjList).updateListForDijkstra(dist, prev);
 }
+

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 std::vector<KruskalIncidenceMatrix::Edge> KruskalIncidenceMatrix::getEdges(const IncidentMatrix* graph) {
     std::vector<Edge> edges;
@@ -24,9 +25,7 @@ std::vector<KruskalIncidenceMatrix::Edge> KruskalIncidenceMatrix::getEdges(const
 }
 
 void KruskalIncidenceMatrix::updateIncidentMatrix(IncidentMatrix* graph, const std::vector<Edge>& mstEdges, int startVertex, int endVertex) {
-    // Wyczyść macierz incydencji
-    graph->clear();  // Zakładamy, że metoda clear() usuwa wszystkie dane z macierzy
-
+    graph->clear();
     int newVerticesCount = endVertex - startVertex + 1;
     graph->initialize(newVerticesCount, mstEdges.size());
     int edgeIndex = 0;
@@ -37,10 +36,11 @@ void KruskalIncidenceMatrix::updateIncidentMatrix(IncidentMatrix* graph, const s
 }
 
 void KruskalIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVertex) {
+//    auto startTime = std::chrono::high_resolution_clock::now();
+
     std::vector<Edge> edges = getEdges(graph);
     std::sort(edges.begin(), edges.end());
-
-    DisjointSets ds(endVertex - startVertex + 1); // Initialize with the adjusted vertex range
+    DisjointSets ds(endVertex - startVertex + 1);
     std::vector<Edge> result;
     int totalWeight = 0;
 
@@ -58,9 +58,13 @@ void KruskalIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int end
 
     updateIncidentMatrix(graph, result, startVertex, endVertex);
 
+//    auto endTime = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+
     std::cout << "Minimum Spanning Tree using Kruskal's Algorithm (Incidence Matrix):" << std::endl;
     for (const auto& edge : result) {
         std::cout << edge.u << " -- " << edge.v << " == " << edge.weight << std::endl;
     }
     std::cout << "Total weight of MST: " << totalWeight << std::endl;
+//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
 }

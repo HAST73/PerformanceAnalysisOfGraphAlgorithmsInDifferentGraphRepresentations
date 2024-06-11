@@ -7,19 +7,19 @@
 class IncidentMatrix {
 public:
     IncidentMatrix(int vertices, int edges, bool directed);
-    void addEdge(int v1, int v2, int edgeIndex, int weight = 1); // Add weight parameter
+    void addEdge(int v1, int v2, int edgeIndex, int weight = 1);
     void printMatrix();
     void printMatrix(int startVertex, int endVertex);
     int getVertices() const { return vertices; }
     int getEdges() const { return edges; }
     const std::vector<std::vector<int>>& getMatrix() const { return matrix; }
     void initialize(int vertices, int edges);
-    void clear();  // Nowa metoda do czyszczenia macierzy
+    void clear();
     void updateMatrixForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev);
     void updateMatrixForBellmanFord(const std::vector<int>& dist, const std::vector<int>& prev);
 
 private:
-    std::vector<std::vector<int>> matrix; // Incident Matrix for unweighted graph
+    std::vector<std::vector<int>> matrix;
     int vertices;
     int edges;
     bool directed;

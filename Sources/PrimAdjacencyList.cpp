@@ -5,8 +5,11 @@
 #include <queue>
 #include <functional>
 #include <climits>
+#include <chrono>
 
 void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex) {
+//    auto start = std::chrono::high_resolution_clock::now(); // Start time measurement
+
     int totalVertices = graph->getVertices();
     int vertices = endVertex - startVertex + 1;
 
@@ -56,4 +59,8 @@ void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex
         int weight = key[v];
         graph->addEdge(u, v, weight, false);
     }
+
+//    auto end = std::chrono::high_resolution_clock::now(); // End time measurement
+//    double elapsed = std::chrono::duration<double, std::milli>(end - start).count(); // Calculate elapsed time
+//    std::cout << "Execution time: " << elapsed << " ms" << std::endl; // Print elapsed time
 }

@@ -2,11 +2,14 @@
 #include <limits>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
-BellmanFordIncidenceMatrix::BellmanFordIncidenceMatrix(const IncidentMatrix& incidentMatrix) // for negative values there shoulb be an upgrade
+BellmanFordIncidenceMatrix::BellmanFordIncidenceMatrix(const IncidentMatrix& incidentMatrix)
         : incMatrix(incidentMatrix) {}
 
 bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
+//    auto startTime = std::chrono::high_resolution_clock::now();
+
     int vertices = incMatrix.getVertices();
     int edges = incMatrix.getEdges();
     dist.resize(vertices, std::numeric_limits<int>::max());
@@ -59,7 +62,9 @@ bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex
         }
     }
 
-    // Aktualizacja macierzy incydencji
+//    auto endTime = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+
     const_cast<IncidentMatrix&>(incMatrix).updateMatrixForBellmanFord(dist, prev);
 
     if (dist[endVertex] == std::numeric_limits<int>::max()) {
@@ -79,6 +84,8 @@ bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex
         std::cout << path[i];
     }
     std::cout << " with total weight " << dist[endVertex] << std::endl;
+//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
 
     return true;
 }
+

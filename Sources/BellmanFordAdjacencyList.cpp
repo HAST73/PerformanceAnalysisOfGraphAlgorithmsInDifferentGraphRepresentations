@@ -2,11 +2,14 @@
 #include <limits>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
 BellmanFordAdjacencyList::BellmanFordAdjacencyList(const AdjacencyList& adjacencyList)
         : adjList(adjacencyList) {}
 
 bool BellmanFordAdjacencyList::findShortestPath(int startVertex, int endVertex) {
+//    auto startTime = std::chrono::high_resolution_clock::now();
+
     int vertices = adjList.getVertices();
     dist.resize(vertices, std::numeric_limits<int>::max());
     prev.resize(vertices, -1);
@@ -42,6 +45,9 @@ bool BellmanFordAdjacencyList::findShortestPath(int startVertex, int endVertex) 
         }
     }
 
+//    auto endTime = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+
     // Aktualizacja listy sąsiedztwa
     const_cast<AdjacencyList&>(adjList).updateListForBellmanFord(dist, prev);
 
@@ -62,6 +68,8 @@ bool BellmanFordAdjacencyList::findShortestPath(int startVertex, int endVertex) 
         std::cout << path[i];
     }
     std::cout << " with total weight " << dist[endVertex] << std::endl;
+//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
 
     return true;
 }
+

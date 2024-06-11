@@ -5,6 +5,7 @@
 #include <climits>
 #include <queue>
 #include <utility>
+#include <chrono>
 
 class Compare {
 public:
@@ -14,6 +15,8 @@ public:
 };
 
 void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVertex) {
+//    auto start = std::chrono::high_resolution_clock::now(); // Start time measurement
+
     int vertices = graph->getVertices(); // Number of vertices
     int edges = graph->getEdges(); // Number of edges
     std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
@@ -93,4 +96,8 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
 
     // Replace the old matrix with the new one
     *graph = newIncidentMatrix;
+
+//    auto end = std::chrono::high_resolution_clock::now(); // End time measurement
+//    double elapsed = std::chrono::duration<double, std::milli>(end - start).count(); // Calculate elapsed time
+//    std::cout << "Execution time: " << elapsed << " ms" << std::endl; // Print elapsed time
 }

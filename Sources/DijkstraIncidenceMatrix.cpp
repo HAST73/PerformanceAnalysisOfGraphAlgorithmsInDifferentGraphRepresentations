@@ -4,11 +4,14 @@
 #include <limits>
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 
 DijkstraIncidenceMatrix::DijkstraIncidenceMatrix(const IncidentMatrix& incMatrix)
         : incMatrix(incMatrix) {}
 
 void DijkstraIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
+//    auto startTime = std::chrono::high_resolution_clock::now();
+
     int vertices = incMatrix.getVertices();
     int edges = incMatrix.getEdges();
     std::vector<int> dist(vertices, std::numeric_limits<int>::max());
@@ -47,6 +50,9 @@ void DijkstraIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
         }
     }
 
+//    auto endTime = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+
     if (dist[endVertex] == std::numeric_limits<int>::max()) {
         std::cout << "No path from " << startVertex << " to " << endVertex << std::endl;
         return;
@@ -64,7 +70,8 @@ void DijkstraIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
         std::cout << path[i];
     }
     std::cout << " with total weight " << dist[endVertex] << std::endl;
+//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
 
-    // Update the incidence matrix with the shortest path information
     const_cast<IncidentMatrix&>(incMatrix).updateMatrixForDijkstra(dist, prev);
 }
+

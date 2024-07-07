@@ -4,17 +4,19 @@
 #include <stdexcept>
 #include <iostream>
 
-std::vector<std::vector<int>> ReadFile::readData(const std::string& filename, bool fullRead) {
-    std::ifstream file(filename);
+using namespace std;
+
+vector<vector<int>> ReadFile::readData(const string& filename, bool fullRead) {
+    ifstream file(filename);
     if (!file.is_open()) {
-        throw std::runtime_error("Unable to open file: " + filename);
+        throw runtime_error("Unable to open file: " + filename);
     }
 
-    std::vector<std::vector<int>> data;
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream stream(line);
-        std::vector<int> row;
+    vector<vector<int>> data;
+    string line;
+    while (getline(file, line)) {
+        istringstream stream(line);
+        vector<int> row;
         int number;
         while (stream >> number) {
             row.push_back(number);
@@ -23,7 +25,7 @@ std::vector<std::vector<int>> ReadFile::readData(const std::string& filename, bo
     }
 
     if (data.empty()) {
-        throw std::runtime_error("File is empty or data could not be read.");
+        throw runtime_error("File is empty or data could not be read.");
     }
 
     file.close();

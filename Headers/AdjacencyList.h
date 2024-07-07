@@ -1,10 +1,12 @@
-#ifndef PROJECT_AIZO_2_ADJACENCYLISTS_H
-#define PROJECT_AIZO_2_ADJACENCYLISTS_H
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_ADJACENCYLISTS_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_ADJACENCYLISTS_H
 
 #include <vector>
 #include <list>
 #include <iostream>
 #include <utility>
+
+using namespace std;
 
 class AdjacencyList {
 public:
@@ -12,14 +14,14 @@ public:
     void addEdge(int v1, int v2, int weight, bool directed);
     void printList();
     int getVertices() const { return vertices; }
-    const std::vector<std::list<std::pair<int, int>>>& getAdjList() const { return adjList; }
+    const vector<list<pair<int, int>>>& getAdjList() const { return adjList; }
     void clear();
-    void updateListForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev);
-    void updateListForBellmanFord(const std::vector<int>& dist, const std::vector<int>& prev);
+    void updateListForDijkstra(const vector<int>& dist, const vector<int>& prev);
+    void updateListForBellmanFord(const vector<int>& dist, const vector<int>& prev);
 
 private:
-    std::vector<std::list<std::pair<int, int>>> adjList;
+    vector<list<pair<int, int>>> adjList;
     int vertices;
 };
 
-#endif //PROJECT_AIZO_2_ADJACENCYLISTS_H
+#endif //PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_ADJACENCYLISTS_H

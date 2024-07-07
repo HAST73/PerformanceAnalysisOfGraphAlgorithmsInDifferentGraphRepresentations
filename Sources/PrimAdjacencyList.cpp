@@ -7,19 +7,21 @@
 #include <climits>
 #include <chrono>
 
+using namespace std;
+
 void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex) {
-//    auto start = std::chrono::high_resolution_clock::now(); // Start time measurement
+    auto start = chrono::high_resolution_clock::now(); // Start time measurement
 
     int totalVertices = graph->getVertices();
     int vertices = endVertex - startVertex + 1;
 
-    std::vector<int> key(totalVertices, INT_MAX);
-    std::vector<bool> inMST(totalVertices, false);
-    std::vector<int> parent(totalVertices, -1);
+    vector<int> key(totalVertices, INT_MAX);
+    vector<bool> inMST(totalVertices, false);
+    vector<int> parent(totalVertices, -1);
 
     key[startVertex] = 0;
-    using PII = std::pair<int, int>;
-    std::priority_queue<PII, std::vector<PII>, std::greater<PII>> pq;
+    using PII = pair<int, int>;
+    priority_queue<PII, vector<PII>, greater<PII>> pq;
     pq.push({0, startVertex});
 
     while (!pq.empty()) {
@@ -38,20 +40,20 @@ void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex
         }
     }
 
-    std::vector<std::pair<int, int>> mstEdges;
+    vector<pair<int, int>> mstEdges;
     int totalCost = 0;
 
-    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << endl;
     for (int i = startVertex; i <= endVertex; ++i) {
         if (parent[i] != -1) {
             mstEdges.push_back({parent[i], i});
             int weight = key[i];
-            std::cout << parent[i] << " - " << i << " : " << weight << std::endl;
+            cout << parent[i] << " - " << i << " : " << weight << endl;
             totalCost += weight;
         }
     }
 
-    std::cout << "Total cost of MST: " << totalCost << std::endl;
+    cout << "Total cost of MST: " << totalCost << endl;
 
     // Clear the old graph and add MST edges
     graph->clear();
@@ -60,7 +62,7 @@ void PrimAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex
         graph->addEdge(u, v, weight, false);
     }
 
-//    auto end = std::chrono::high_resolution_clock::now(); // End time measurement
-//    double elapsed = std::chrono::duration<double, std::milli>(end - start).count(); // Calculate elapsed time
-//    std::cout << "Execution time: " << elapsed << " ms" << std::endl; // Print elapsed time
+    auto end = chrono::high_resolution_clock::now(); // End time measurement
+    double elapsed = chrono::duration<double, milli>(end - start).count(); // Calculate elapsed time
+    cout << "Execution time: " << elapsed << " ms" << endl; // Print elapsed time
 }

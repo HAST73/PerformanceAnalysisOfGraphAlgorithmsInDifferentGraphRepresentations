@@ -1,14 +1,14 @@
-#ifndef PROJECT_AIZO_2_READFILE_H
-#define PROJECT_AIZO_2_READFILE_H
-
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_READFILE_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_READFILE_H
 
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class ReadFile {
 public:
-    static std::vector<std::vector<int>> readData(const std::string& filename, bool fullRead);
+    static vector<vector<int>> readData(const string& filename, bool fullRead);
 };
 
-
-#endif //PROJECT_AIZO_2_READFILE_H
+#endif // PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_READFILE_H

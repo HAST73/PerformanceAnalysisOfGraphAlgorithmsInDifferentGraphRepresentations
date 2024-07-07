@@ -1,9 +1,11 @@
-#ifndef PROJECT_AIZO_2_KRUSKALADJACENCYLIST_H
-#define PROJECT_AIZO_2_KRUSKALADJACENCYLIST_H
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALADJACENCYLIST_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALADJACENCYLIST_H
 
 #include <vector>
 #include "../Headers/AdjacencyList.h"
 #include "../Headers/DisjointSets.h"
+
+using namespace std;
 
 class KruskalAdjacencyList {
 public:
@@ -15,8 +17,8 @@ public:
     };
 
     static void run(AdjacencyList* graph, int startVertex, int endVertex, bool directed);
-    static std::vector<Edge> getEdges(const AdjacencyList* graph);
-    static void updateAdjacencyList(AdjacencyList* graph, const std::vector<Edge>& mstEdges, bool directed);
+    static vector<Edge> getEdges(const AdjacencyList* graph);
+    static void updateAdjacencyList(AdjacencyList* graph, const vector<Edge>& mstEdges, bool directed);
 };
 
-#endif //PROJECT_AIZO_2_KRUSKALADJACENCYLIST_H
+#endif //PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALADJACENCYLIST_H

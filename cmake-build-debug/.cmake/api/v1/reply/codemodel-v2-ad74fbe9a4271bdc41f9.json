@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Konrad/Desktop/Project_AIZO_2/Project_AIZO_2/cmake-build-debug",
-		"source" : "C:/Users/Konrad/Desktop/Project_AIZO_2/Project_AIZO_2"
+		"build" : "C:/Users/Konrad/Desktop/IV semestr/AiZO/Project_AIZO_2/PerformanceAnalysisOfGraphAlgorithmsInDifferentGraphRepresentations/cmake-build-debug",
+		"source" : "C:/Users/Konrad/Desktop/IV semestr/AiZO/Project_AIZO_2/PerformanceAnalysisOfGraphAlgorithmsInDifferentGraphRepresentations"
 	},
 	"version" : 
 	{

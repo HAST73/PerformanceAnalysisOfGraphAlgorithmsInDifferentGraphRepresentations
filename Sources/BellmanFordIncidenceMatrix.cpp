@@ -4,15 +4,17 @@
 #include <algorithm>
 #include <chrono>
 
+using namespace std;
+
 BellmanFordIncidenceMatrix::BellmanFordIncidenceMatrix(const IncidentMatrix& incidentMatrix)
         : incMatrix(incidentMatrix) {}
 
 bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
-//    auto startTime = std::chrono::high_resolution_clock::now();
+    auto startTime = chrono::high_resolution_clock::now();
 
     int vertices = incMatrix.getVertices();
     int edges = incMatrix.getEdges();
-    dist.resize(vertices, std::numeric_limits<int>::max());
+    dist.resize(vertices, numeric_limits<int>::max());
     prev.resize(vertices, -1);
 
     dist[startVertex] = 0;
@@ -32,7 +34,7 @@ bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex
                     }
                 }
             }
-            if (u != -1 && v != -1 && dist[u] != std::numeric_limits<int>::max() && dist[u] + (-weight) < dist[v]) {
+            if (u != -1 && v != -1 && dist[u] != numeric_limits<int>::max() && dist[u] + (-weight) < dist[v]) {
                 dist[v] = dist[u] + (-weight);
                 prev[v] = u;
                 updated = true;
@@ -56,36 +58,35 @@ bool BellmanFordIncidenceMatrix::findShortestPath(int startVertex, int endVertex
                 }
             }
         }
-        if (u != -1 && v != -1 && dist[u] != std::numeric_limits<int>::max() && dist[u] + (-weight) < dist[v]) {
-            std::cout << "Negative weight cycle detected!" << std::endl;
+        if (u != -1 && v != -1 && dist[u] != numeric_limits<int>::max() && dist[u] + (-weight) < dist[v]) {
+            cout << "Negative weight cycle detected!" << endl;
             return false;
         }
     }
 
-//    auto endTime = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> elapsed = endTime - startTime; // Changed to milliseconds
 
     const_cast<IncidentMatrix&>(incMatrix).updateMatrixForBellmanFord(dist, prev);
 
-    if (dist[endVertex] == std::numeric_limits<int>::max()) {
-        std::cout << "No path from " << startVertex << " to " << endVertex << std::endl;
+    if (dist[endVertex] == numeric_limits<int>::max()) {
+        cout << "No path from " << startVertex << " to " << endVertex << endl;
         return false;
     }
 
-    std::vector<int> path;
+    vector<int> path;
     for (int at = endVertex; at != -1; at = prev[at]) {
         path.push_back(at);
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
 
-    std::cout << "Shortest path from " << startVertex << " to " << endVertex << ": ";
+    cout << "Shortest path from " << startVertex << " to " << endVertex << ": ";
     for (size_t i = 0; i < path.size(); ++i) {
-        if (i > 0) std::cout << " -> ";
-        std::cout << path[i];
+        if (i > 0) cout << " -> ";
+        cout << path[i];
     }
-    std::cout << " with total weight " << dist[endVertex] << std::endl;
-//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
+    cout << " with total weight " << dist[endVertex] << endl;
+    cout << "Elapsed time: " << elapsed.count() << " ms" << endl; // Changed output to milliseconds
 
     return true;
 }
-

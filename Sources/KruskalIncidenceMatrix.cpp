@@ -4,8 +4,10 @@
 #include <vector>
 #include <chrono>
 
-std::vector<KruskalIncidenceMatrix::Edge> KruskalIncidenceMatrix::getEdges(const IncidentMatrix* graph) {
-    std::vector<Edge> edges;
+using namespace std;
+
+vector<KruskalIncidenceMatrix::Edge> KruskalIncidenceMatrix::getEdges(const IncidentMatrix* graph) {
+    vector<Edge> edges;
     int vertices = graph->getVertices();
     int edgesCount = graph->getEdges();
 
@@ -24,7 +26,7 @@ std::vector<KruskalIncidenceMatrix::Edge> KruskalIncidenceMatrix::getEdges(const
     return edges;
 }
 
-void KruskalIncidenceMatrix::updateIncidentMatrix(IncidentMatrix* graph, const std::vector<Edge>& mstEdges, int startVertex, int endVertex) {
+void KruskalIncidenceMatrix::updateIncidentMatrix(IncidentMatrix* graph, const vector<Edge>& mstEdges, int startVertex, int endVertex) {
     graph->clear();
     int newVerticesCount = endVertex - startVertex + 1;
     graph->initialize(newVerticesCount, mstEdges.size());
@@ -36,12 +38,12 @@ void KruskalIncidenceMatrix::updateIncidentMatrix(IncidentMatrix* graph, const s
 }
 
 void KruskalIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVertex) {
-//    auto startTime = std::chrono::high_resolution_clock::now();
+    auto startTime = chrono::high_resolution_clock::now();
 
-    std::vector<Edge> edges = getEdges(graph);
-    std::sort(edges.begin(), edges.end());
+    vector<Edge> edges = getEdges(graph);
+    sort(edges.begin(), edges.end());
     DisjointSets ds(endVertex - startVertex + 1);
-    std::vector<Edge> result;
+    vector<Edge> result;
     int totalWeight = 0;
 
     for (const auto& edge : edges) {
@@ -58,13 +60,13 @@ void KruskalIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int end
 
     updateIncidentMatrix(graph, result, startVertex, endVertex);
 
-//    auto endTime = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> elapsed = endTime - startTime; // Changed to milliseconds
 
-    std::cout << "Minimum Spanning Tree using Kruskal's Algorithm (Incidence Matrix):" << std::endl;
+    cout << "Minimum Spanning Tree using Kruskal's Algorithm (Incidence Matrix):" << endl;
     for (const auto& edge : result) {
-        std::cout << edge.u << " -- " << edge.v << " == " << edge.weight << std::endl;
+        cout << edge.u << " -- " << edge.v << " == " << edge.weight << endl;
     }
-    std::cout << "Total weight of MST: " << totalWeight << std::endl;
-//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
+    cout << "Total weight of MST: " << totalWeight << endl;
+    cout << "Elapsed time: " << elapsed.count() << " ms" << endl; // Changed output to milliseconds
 }

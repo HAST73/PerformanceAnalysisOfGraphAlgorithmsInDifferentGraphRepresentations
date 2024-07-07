@@ -1,20 +1,22 @@
-#ifndef PROJECT_AIZO_2_BELLMANFORDINCIDENCEMATRIX_H
-#define PROJECT_AIZO_2_BELLMANFORDINCIDENCEMATRIX_H
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_BELLMANFORDINCIDENCEMATRIX_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_BELLMANFORDINCIDENCEMATRIX_H
 
 #include "../Headers/IncidentMatrix.h"
 #include <vector>
+
+using namespace std;
 
 class BellmanFordIncidenceMatrix {
 public:
     BellmanFordIncidenceMatrix(const IncidentMatrix& incidentMatrix);
     bool findShortestPath(int startVertex, int endVertex);
-    const std::vector<int>& getDistances() const { return dist; }
-    const std::vector<int>& getPredecessors() const { return prev; }
+    const vector<int>& getDistances() const { return dist; }
+    const vector<int>& getPredecessors() const { return prev; }
 
 private:
     const IncidentMatrix& incMatrix;
-    std::vector<int> dist;
-    std::vector<int> prev;
+    vector<int> dist;
+    vector<int> prev;
 };
 
-#endif //PROJECT_AIZO_2_BELLMANFORDINCIDENCEMATRIX_H
+#endif //PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_BELLMANFORDINCIDENCEMATRIX_H

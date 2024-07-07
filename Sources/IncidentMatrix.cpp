@@ -3,9 +3,11 @@
 #include <iomanip>
 #include <algorithm>
 
+using namespace std;
+
 IncidentMatrix::IncidentMatrix(int vertices, int edges, bool directed)
         : vertices(vertices), edges(edges), directed(directed) {
-    matrix.resize(vertices, std::vector<int>(edges, 0));
+    matrix.resize(vertices, vector<int>(edges, 0));
 }
 
 void IncidentMatrix::addEdge(int v1, int v2, int edgeIndex, int weight) {
@@ -24,22 +26,22 @@ void IncidentMatrix::printMatrix() {
 
     for (int chunk = 0; chunk < numChunks; ++chunk) {
         int startEdge = chunk * maxWidth;
-        int endEdge = std::min(startEdge + maxWidth, edges);
+        int endEdge = min(startEdge + maxWidth, edges);
 
-        std::cout << "   ";
+        cout << "   ";
         for (int j = startEdge; j < endEdge; ++j) {
-            std::cout << std::setw(3) << j << " "; // Adjusted width to 3 for better spacing
+            cout << setw(3) << j << " "; // Adjusted width to 3 for better spacing
         }
-        std::cout << std::endl;
+        cout << endl;
 
         for (int i = 0; i < vertices; ++i) {
-            std::cout << std::setw(2) << i << " ";
+            cout << setw(2) << i << " ";
             for (int j = startEdge; j < endEdge; ++j) {
-                std::cout << std::setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
+                cout << setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
             }
-            std::cout << std::endl;
+            cout << endl;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -49,38 +51,38 @@ void IncidentMatrix::printMatrix(int startVertex, int endVertex) {
 
     for (int chunk = 0; chunk < numChunks; ++chunk) {
         int startEdge = chunk * maxWidth;
-        int endEdge = std::min(startEdge + maxWidth, edges);
+        int endEdge = min(startEdge + maxWidth, edges);
 
-        std::cout << "   ";
+        cout << "   ";
         for (int j = startEdge; j < endEdge; ++j) {
-            std::cout << std::setw(3) << j << " "; // Adjusted width to 3 for better spacing
+            cout << setw(3) << j << " "; // Adjusted width to 3 for better spacing
         }
-        std::cout << std::endl;
+        cout << endl;
 
         for (int i = startVertex; i <= endVertex; ++i) {
-            std::cout << std::setw(2) << i << " ";
+            cout << setw(2) << i << " ";
             for (int j = startEdge; j < endEdge; ++j) {
-                std::cout << std::setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
+                cout << setw(3) << matrix[i][j] << " "; // Adjusted width to 3 for better spacing
             }
-            std::cout << std::endl;
+            cout << endl;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
 void IncidentMatrix::initialize(int vertices, int edges) {
-    matrix.resize(vertices, std::vector<int>(edges, 0));
+    matrix.resize(vertices, vector<int>(edges, 0));
     this->vertices = vertices;
     this->edges = edges;
 }
 
 void IncidentMatrix::clear() {
     for (auto& row : matrix) {
-        std::fill(row.begin(), row.end(), 0);
+        fill(row.begin(), row.end(), 0);
     }
 }
 
-void IncidentMatrix::updateMatrixForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev) {
+void IncidentMatrix::updateMatrixForDijkstra(const vector<int>& dist, const vector<int>& prev) {
     clear();
     int usedEdges = 0;
     for (int i = 0; i < dist.size(); ++i) {
@@ -98,7 +100,7 @@ void IncidentMatrix::updateMatrixForDijkstra(const std::vector<int>& dist, const
     }
 }
 
-void IncidentMatrix::updateMatrixForBellmanFord(const std::vector<int>& dist, const std::vector<int>& prev) {
+void IncidentMatrix::updateMatrixForBellmanFord(const vector<int>& dist, const vector<int>& prev) {
     clear();
     int usedEdges = 0;
     for (int i = 0; i < dist.size(); ++i) {

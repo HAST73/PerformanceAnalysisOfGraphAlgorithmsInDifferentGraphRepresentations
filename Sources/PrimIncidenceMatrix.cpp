@@ -7,28 +7,30 @@
 #include <utility>
 #include <chrono>
 
+using namespace std;
+
 class Compare {
 public:
-    bool operator()(std::pair<int, int> a, std::pair<int, int> b) {
+    bool operator()(pair<int, int> a, pair<int, int> b) {
         return a.second > b.second; // Min-heap based on weight
     }
 };
 
 void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVertex) {
-//    auto start = std::chrono::high_resolution_clock::now(); // Start time measurement
+    auto start = chrono::high_resolution_clock::now(); // Start time measurement
 
     int vertices = graph->getVertices(); // Number of vertices
     int edges = graph->getEdges(); // Number of edges
-    std::vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
-    std::vector<int> parent(vertices, -1); // Stores the MST
-    std::vector<bool> inMST(vertices, false); // Keeps track of vertices included in MST
-    std::vector<std::pair<int, int>> mstEdges; // Stores the edges in MST
+    vector<int> key(vertices, INT_MAX); // Minimum weights to include vertices in MST
+    vector<int> parent(vertices, -1); // Stores the MST
+    vector<bool> inMST(vertices, false); // Keeps track of vertices included in MST
+    vector<pair<int, int>> mstEdges; // Stores the edges in MST
     int totalCost = 0; // Total cost of MST
 
     key[startVertex] = 0; // Start from the startVertex
 
     // Priority queue to process vertices
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, Compare> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> pq;
     pq.push({startVertex, key[startVertex]});
 
     while (!pq.empty()) {
@@ -70,17 +72,17 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     }
 
     // Print MST paths from startVertex to endVertex and calculate total cost
-    std::cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+    cout << "Minimum Spanning Tree (Prim's Algorithm) from vertex " << startVertex << " to vertex " << endVertex << ":" << endl;
     for (const auto& edge : mstEdges) {
         int u = edge.first;
         int v = edge.second;
         int weight = key[v];
-        std::cout << u << " - " << v << " : " << weight << std::endl;
+        cout << u << " - " << v << " : " << weight << endl;
         totalCost += weight; // Add edge weight to total cost
     }
 
     // Print the total cost of MST
-    std::cout << "Total cost of MST: " << totalCost << std::endl;
+    cout << "Total cost of MST: " << totalCost << endl;
 
     // Create a new incidence matrix for the MST
     int newEdges = mstEdges.size();
@@ -97,7 +99,7 @@ void PrimIncidenceMatrix::run(IncidentMatrix* graph, int startVertex, int endVer
     // Replace the old matrix with the new one
     *graph = newIncidentMatrix;
 
-//    auto end = std::chrono::high_resolution_clock::now(); // End time measurement
-//    double elapsed = std::chrono::duration<double, std::milli>(end - start).count(); // Calculate elapsed time
-//    std::cout << "Execution time: " << elapsed << " ms" << std::endl; // Print elapsed time
+    auto end = chrono::high_resolution_clock::now(); // End time measurement
+    double elapsed = chrono::duration<double, milli>(end - start).count(); // Calculate elapsed time
+    cout << "Execution time: " << elapsed << " ms" << endl; // Print elapsed time
 }

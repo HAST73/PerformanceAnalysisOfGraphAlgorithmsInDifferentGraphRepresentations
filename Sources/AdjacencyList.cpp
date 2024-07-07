@@ -4,33 +4,35 @@
 #include <list>
 #include <vector>
 
+using namespace std;
+
 AdjacencyList::AdjacencyList(int vertices)
         : vertices(vertices) {
     adjList.resize(vertices);
 }
 
 void AdjacencyList::addEdge(int v1, int v2, int weight, bool directed) {
-    adjList[v1].push_back(std::make_pair(v2, weight));
+    adjList[v1].push_back(make_pair(v2, weight));
     if (!directed) {
-        adjList[v2].push_back(std::make_pair(v1, weight));
+        adjList[v2].push_back(make_pair(v1, weight));
     }
 }
 
 void AdjacencyList::printList() {
     // Calculate the maximum width for vertex numbers
-    int maxWidth = std::to_string(vertices - 1).length();
-    std::cout<<std::endl;
+    int maxWidth = to_string(vertices - 1).length();
+    cout << endl;
 
     for (int i = 0; i < vertices; ++i) {
-        std::cout << std::setw(maxWidth) << i << ": ";
+        cout << setw(maxWidth) << i << ": ";
         if (adjList[i].empty()) {
-            std::cout << "None";
+            cout << "None";
         } else {
             for (const auto& edge : adjList[i]) {
-                std::cout << "(" << edge.first << ", " << edge.second << ") ";
+                cout << "(" << edge.first << ", " << edge.second << ") ";
             }
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -40,7 +42,7 @@ void AdjacencyList::clear() {
     }
 }
 
-void AdjacencyList::updateListForDijkstra(const std::vector<int>& dist, const std::vector<int>& prev) {
+void AdjacencyList::updateListForDijkstra(const vector<int>& dist, const vector<int>& prev) {
     // Clear the current adjacency list and rebuild it based on the shortest paths
     clear();
     for (int i = 0; i < vertices; ++i) {
@@ -50,7 +52,7 @@ void AdjacencyList::updateListForDijkstra(const std::vector<int>& dist, const st
     }
 }
 
-void AdjacencyList::updateListForBellmanFord(const std::vector<int>& dist, const std::vector<int>& prev) {
+void AdjacencyList::updateListForBellmanFord(const vector<int>& dist, const vector<int>& prev) {
     // Clear the current adjacency list and rebuild it based on the shortest paths
     clear();
     for (int i = 0; i < vertices; ++i) {

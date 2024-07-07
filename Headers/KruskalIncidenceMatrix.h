@@ -1,9 +1,11 @@
-#ifndef PROJECT_AIZO_2_KRUSKALINCIDENCEMATRIX_H
-#define PROJECT_AIZO_2_KRUSKALINCIDENCEMATRIX_H
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALINCIDENCEMATRIX_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALINCIDENCEMATRIX_H
 
 #include <vector>
 #include "../Headers/IncidentMatrix.h"
 #include "../Headers/DisjointSets.h"
+
+using namespace std;
 
 class KruskalIncidenceMatrix {
 public:
@@ -14,9 +16,9 @@ public:
         }
     };
 
-    static std::vector<Edge> getEdges(const IncidentMatrix* graph);
+    static vector<Edge> getEdges(const IncidentMatrix* graph);
     static void run(IncidentMatrix* graph, int startVertex, int endVertex);
-    static void updateIncidentMatrix(IncidentMatrix* graph, const std::vector<Edge>& mstEdges, int startVertex, int endVertex);
+    static void updateIncidentMatrix(IncidentMatrix* graph, const vector<Edge>& mstEdges, int startVertex, int endVertex);
 };
 
-#endif //PROJECT_AIZO_2_KRUSKALINCIDENCEMATRIX_H
+#endif //PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_KRUSKALINCIDENCEMATRIX_H

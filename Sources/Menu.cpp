@@ -18,7 +18,7 @@
 
 using namespace std;
 
-std::vector<std::vector<int>> globalIntData;
+vector<vector<int>> globalIntData;
 
 Menu::~Menu() {
     delete directedIncidentMatrix;
@@ -30,19 +30,19 @@ Menu::~Menu() {
 }
 
 void Menu::displayMainMenu() {
-    std::cout << std::endl;
-    std::cout << "=== MENU ===" << std::endl;
-    std::cout << "1. Load file" << std::endl;
-    std::cout << "2. Generate random graph file" << std::endl;
-    std::cout << "0. Exit" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== MENU ===" << endl;
+    cout << "1. Load file" << endl;
+    cout << "2. Generate random graph file" << endl;
+    cout << "0. Exit" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleMainMenu() {
     int choice;
     do {
         displayMainMenu();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
@@ -55,34 +55,34 @@ void Menu::handleMainMenu() {
                 generateRandomGraph();
                 break;
             case 0:
-                std::cout << "Exiting program" << std::endl;
+                cout << "Exiting program" << endl;
                 break;
             default:
-                std::cout << "Invalid option, try again" << std::endl;
+                cout << "Invalid option, try again" << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayFileMenu() {
-    std::cout << std::endl;
-    std::cout << "=== FILE MENU ===" << std::endl;
-    std::cout << "1. Display file content" << std::endl;
-    std::cout << "2. Display incidence matrix (directed)" << std::endl;
-    std::cout << "3. Display incidence matrix (undirected)" << std::endl;
-    std::cout << "4. Display weighted incidence matrix (directed)" << std::endl;
-    std::cout << "5. Display weighted incidence matrix (undirected)" << std::endl;
-    std::cout << "6. Display adjacency list (directed)" << std::endl;
-    std::cout << "7. Display adjacency list (undirected)" << std::endl;
-    std::cout << "8. Select graph type for algorithms" << std::endl;
-    std::cout << "0. Back to main menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== FILE MENU ===" << endl;
+    cout << "1. Display file content" << endl;
+    cout << "2. Display incidence matrix (directed)" << endl;
+    cout << "3. Display incidence matrix (undirected)" << endl;
+    cout << "4. Display weighted incidence matrix (directed)" << endl;
+    cout << "5. Display weighted incidence matrix (undirected)" << endl;
+    cout << "6. Display adjacency list (directed)" << endl;
+    cout << "7. Display adjacency list (undirected)" << endl;
+    cout << "8. Select graph type for algorithms" << endl;
+    cout << "0. Back to main menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleFileMenu() {
     int choice;
     do {
         displayFileMenu();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
@@ -112,25 +112,25 @@ void Menu::handleFileMenu() {
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayGraphTypeMenu() {
-    std::cout << std::endl;
-    std::cout << "=== SELECT GRAPH TYPE ===" << std::endl;
-    std::cout << "1. Directed graph (For Shortest Path and Maximum Flow Algorithms)" << std::endl;
-    std::cout << "2. Undirected graph (For Minimum Spanning Tree Algorithms)" << std::endl;
-    std::cout << "0. Back to file menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== SELECT GRAPH TYPE ===" << endl;
+    cout << "1. Directed graph (For Shortest Path and Maximum Flow Algorithms)" << endl;
+    cout << "2. Undirected graph (For Minimum Spanning Tree Algorithms)" << endl;
+    cout << "0. Back to file menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleGraphTypeMenu() {
     int choice;
     do {
         displayGraphTypeMenu();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
@@ -142,30 +142,30 @@ void Menu::handleGraphTypeMenu() {
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayAlgorithmMenu(bool isDirected) {
-    std::cout << std::endl;
-    std::cout << "=== ALGORITHMS ===" << std::endl;
+    cout << endl;
+    cout << "=== ALGORITHMS ===" << endl;
     if (!isDirected) {
-        std::cout << "1. Minimum Spanning Tree Algorithms (Prim and Kruskal)" << std::endl;
+        cout << "1. Minimum Spanning Tree Algorithms (Prim and Kruskal)" << endl;
     }
     if (isDirected) {
-        std::cout << "2. Shortest Path Algorithms (Dijkstra and Ford-Bellman)" << std::endl;
-        std::cout << "3. Maximum Flow Algorithms (Ford-Fulkerson)" << std::endl;
+        cout << "2. Shortest Path Algorithms (Dijkstra and Ford-Bellman)" << endl;
+        cout << "3. Maximum Flow Algorithms (Ford-Fulkerson)" << endl;
     }
-    std::cout << "0. Back to graph type menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << "0. Back to graph type menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleAlgorithmMenu(bool isDirected) {
     int choice;
     do {
         displayAlgorithmMenu(isDirected);
-        std::cin >> choice;
+        cin >> choice;
 
         if (!isDirected && choice == 1) {
             handleMSTMenu();
@@ -176,96 +176,96 @@ void Menu::handleAlgorithmMenu(bool isDirected) {
         } else if (choice == 0) {
             break;
         } else {
-            std::cout << "Invalid option, try again." << std::endl;
+            cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displaySPMenu() {
-    std::cout << std::endl;
-    std::cout << "=== SHORTEST PATH ALGORITHMS ===" << std::endl;
-    std::cout << "1. Dijkstra's Algorithm (Adjacency List)" << std::endl;
-    std::cout << "2. Dijkstra's Algorithm (Incidence Matrix)" << std::endl;
-    std::cout << "3. Ford-Bellman's Algorithm (Adjacency List)" << std::endl;
-    std::cout << "4. Ford-Bellman's Algorithm (Incidence Matrix)" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== SHORTEST PATH ALGORITHMS ===" << endl;
+    cout << "1. Dijkstra's Algorithm (Adjacency List)" << endl;
+    cout << "2. Dijkstra's Algorithm (Incidence Matrix)" << endl;
+    cout << "3. Ford-Bellman's Algorithm (Adjacency List)" << endl;
+    cout << "4. Ford-Bellman's Algorithm (Incidence Matrix)" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleSPMenu() {
     int choice;
     do {
         displaySPMenu();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (directedAdjacencyList) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     DijkstraAdjacencyList dijkstra(*directedAdjacencyList);
                     dijkstra.findShortestPath(startVertex, endVertex);
                     handlePostSPMenuListDijkstra(startVertex, endVertex);
                 } else {
-                    std::cout << "No directed adjacency list available." << std::endl;
+                    cout << "No directed adjacency list available." << endl;
                 }
                 break;
             case 2:
                 if (directedWeightedIncidentMatrix) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     DijkstraIncidenceMatrix dijkstra(*directedWeightedIncidentMatrix);
                     dijkstra.findShortestPath(startVertex, endVertex);
                     handlePostSPMenuMatrixDijkstra(startVertex, endVertex);
                 } else {
-                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                    cout << "No directed weighted incidence matrix available." << endl;
                 }
                 break;
             case 3:
                 if (directedAdjacencyList) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     BellmanFordAdjacencyList bellmanford(*directedAdjacencyList);
                     if (bellmanford.findShortestPath(startVertex, endVertex)) {
                         handlePostSPMenuListBellmanFord(startVertex, endVertex);
                     } else {
-                        std::cout << "Negative weight cycle detected!" << std::endl;
+                        cout << "Negative weight cycle detected!" << endl;
                     }
                 } else {
-                    std::cout << "No directed adjacency list available." << std::endl;
+                    cout << "No directed adjacency list available." << endl;
                 }
                 break;
             case 4:
                 if (directedWeightedIncidentMatrix) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     BellmanFordIncidenceMatrix bellmanford(*directedWeightedIncidentMatrix);
                     if (bellmanford.findShortestPath(startVertex, endVertex)) {
                         handlePostSPMenuMatrixBellmanFord(startVertex, endVertex);
                     } else {
-                        std::cout << "Negative weight cycle detected!" << std::endl;
+                        cout << "Negative weight cycle detected!" << endl;
                     }
                 } else {
-                    std::cout << "No directed weighted incidence matrix available." << std::endl;
+                    cout << "No directed weighted incidence matrix available." << endl;
                 }
                 break;
             case 0:
-                std::cout << "Returning to main menu." << std::endl;
+                cout << "Returning to main menu." << endl;
                 break;
             default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+                cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice != 0);
 }
@@ -274,24 +274,24 @@ void Menu::handlePostSPMenuListBellmanFord(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostSPMenuListBellmanFord();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
-                std::cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+                cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << endl;
                 if (directedAdjacencyList) {
                     BellmanFordAdjacencyList bellmanford(*directedAdjacencyList);
                     bellmanford.findShortestPath(startVertex, endVertex);
                     directedAdjacencyList->printList();
                 } else {
-                    std::cout << "Directed Adjacency List not loaded!" << std::endl;
+                    cout << "Directed Adjacency List not loaded!" << endl;
                 }
                 break;
             case 0:
-                std::cout << "Returning to shortest path menu." << std::endl;
+                cout << "Returning to shortest path menu." << endl;
                 break;
             default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+                cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice != 0);
 }
@@ -300,49 +300,49 @@ void Menu::handlePostSPMenuMatrixBellmanFord(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostSPMenuMatrixBellmanFord();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
-                std::cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << std::endl;
+                cout << "Shortest path from vertex " << startVertex << " to vertex " << endVertex << ":" << endl;
                 if (directedWeightedIncidentMatrix) {
                     BellmanFordIncidenceMatrix bellmanford(*directedWeightedIncidentMatrix);
                     bellmanford.findShortestPath(startVertex, endVertex);
                     directedWeightedIncidentMatrix->printMatrix();
                 } else {
-                    std::cout << "Directed Incident Matrix not loaded!" << std::endl;
+                    cout << "Directed Incident Matrix not loaded!" << endl;
                 }
                 break;
             case 0:
-                std::cout << "Returning to shortest path menu." << std::endl;
+                cout << "Returning to shortest path menu." << endl;
                 break;
             default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+                cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayPostSPMenuListBellmanFord() {
-    std::cout << std::endl;
-    std::cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << std::endl;
-    std::cout << "1. Display shortest path result" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << endl;
+    cout << "1. Display shortest path result" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayPostSPMenuMatrixBellmanFord() {
-    std::cout << std::endl;
-    std::cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << std::endl;
-    std::cout << "1. Display shortest path result" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << endl;
+    cout << "1. Display shortest path result" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handlePostSPMenuListDijkstra(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostSPMenuListDijkstra();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
@@ -351,13 +351,13 @@ void Menu::handlePostSPMenuListDijkstra(int startVertex, int endVertex) {
                     dijkstra.findShortestPath(startVertex, endVertex);
                     directedAdjacencyList->printList();
                 } else {
-                    std::cout << "Directed Adjacency List not loaded!" << std::endl;
+                    cout << "Directed Adjacency List not loaded!" << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
@@ -366,7 +366,7 @@ void Menu::handlePostSPMenuMatrixDijkstra(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostSPMenuMatrixDijkstra();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
@@ -375,163 +375,163 @@ void Menu::handlePostSPMenuMatrixDijkstra(int startVertex, int endVertex) {
                     dijkstra.findShortestPath(startVertex, endVertex);
                     directedWeightedIncidentMatrix->printMatrix();
                 } else {
-                    std::cout << "Directed Incident Matrix not loaded!" << std::endl;
+                    cout << "Directed Incident Matrix not loaded!" << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayPostSPMenuListDijkstra() {
-    std::cout << std::endl;
-    std::cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << std::endl;
-    std::cout << "1. Display shortest path result" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST SHORTEST PATH MENU (ADJACENCY LIST) ===" << endl;
+    cout << "1. Display shortest path result" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayPostSPMenuMatrixDijkstra() {
-    std::cout << std::endl;
-    std::cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << std::endl;
-    std::cout << "1. Display shortest path result" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST SHORTEST PATH MENU (INCIDENCE MATRIX) ===" << endl;
+    cout << "1. Display shortest path result" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayMSTMenu() {
-    std::cout << std::endl;
-    std::cout << "=== MINIMUM SPANNING TREE ALGORITHMS ===" << std::endl;
-    std::cout << "1. Prim's Algorithm (Adjacency List)" << std::endl;
-    std::cout << "2. Prim's Algorithm (Incidence Matrix)" << std::endl;
-    std::cout << "3. Kruskal's Algorithm (Adjacency List)" << std::endl;
-    std::cout << "4. Kruskal's Algorithm (Incidence Matrix)" << std::endl;
-    std::cout << "0. Back to algorithm menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== MINIMUM SPANNING TREE ALGORITHMS ===" << endl;
+    cout << "1. Prim's Algorithm (Adjacency List)" << endl;
+    cout << "2. Prim's Algorithm (Incidence Matrix)" << endl;
+    cout << "3. Kruskal's Algorithm (Adjacency List)" << endl;
+    cout << "4. Kruskal's Algorithm (Incidence Matrix)" << endl;
+    cout << "0. Back to algorithm menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handleMSTMenu() {
     int choice;
     do {
         displayMSTMenu();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (undirectedAdjacencyList) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     PrimAdjacencyList::run(undirectedAdjacencyList, startVertex, endVertex);
                     handlePostMSTMenuListPrim(startVertex, endVertex);
                 } else {
-                    std::cout << "No undirected adjacency list available." << std::endl;
+                    cout << "No undirected adjacency list available." << endl;
                 }
                 break;
             case 2:
                 if (undirectedWeightedIncidentMatrix) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     PrimIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
                     handlePostMSTMenuMatrixPrim(startVertex, endVertex);
                 } else {
-                    std::cout << "No undirected weighted incidence matrix available." << std::endl;
+                    cout << "No undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 3:
                 if (undirectedAdjacencyList) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     KruskalAdjacencyList::run(undirectedAdjacencyList, startVertex, endVertex, false);
                     handlePostMSTMenuListKruskal(startVertex, endVertex);
                 } else {
-                    std::cout << "No undirected adjacency list available." << std::endl;
+                    cout << "No undirected adjacency list available." << endl;
                 }
                 break;
             case 4:
                 if (undirectedWeightedIncidentMatrix) {
                     int startVertex, endVertex;
-                    std::cout << "Enter the start vertex: ";
-                    std::cin >> startVertex;
-                    std::cout << "Enter the end vertex: ";
-                    std::cin >> endVertex;
+                    cout << "Enter the start vertex: ";
+                    cin >> startVertex;
+                    cout << "Enter the end vertex: ";
+                    cin >> endVertex;
                     KruskalIncidenceMatrix::run(undirectedWeightedIncidentMatrix, startVertex, endVertex);
                     handlePostMSTMenuMatrixKruskal(startVertex, endVertex);
                 } else {
-                    std::cout << "No undirected weighted incidence matrix available." << std::endl;
+                    cout << "No undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 5:
-                std::cout << "Returning to main menu." << std::endl;
+                cout << "Returning to main menu." << endl;
                 break;
             default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+                cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice != 5);
 }
 
 void Menu::displayPostMSTMenuMatrixPrim() {
-    std::cout << std::endl;
-    std::cout << "=== POST MST MENU ===" << std::endl;
-    std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
-    std::cout << "0. Back to main menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST MST MENU ===" << endl;
+    cout << "1. Display new weighted incidence matrix (undirected)" << endl;
+    cout << "0. Back to main menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayPostMSTMenuListPrim() {
-    std::cout << std::endl;
-    std::cout << "=== POST MST MENU ===" << std::endl;
-    std::cout << "1. Display new adjacency list (undirected)" << std::endl;
-    std::cout << "0. Back to main menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST MST MENU ===" << endl;
+    cout << "1. Display new adjacency list (undirected)" << endl;
+    cout << "0. Back to main menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayPostMSTMenuMatrixKruskal() {
-    std::cout << std::endl;
-    std::cout << "=== POST MST MENU ===" << std::endl;
-    std::cout << "1. Display new weighted incidence matrix (undirected)" << std::endl;
-    std::cout << "0. Back to main menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST MST MENU ===" << endl;
+    cout << "1. Display new weighted incidence matrix (undirected)" << endl;
+    cout << "0. Back to main menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::displayPostMSTMenuListKruskal() {
-    std::cout << std::endl;
-    std::cout << "=== POST MST MENU ===" << std::endl;
-    std::cout << "1. Display new adjacency list (undirected)" << std::endl;
-    std::cout << "0. Back to main menu" << std::endl;
-    std::cout << "Select an option: ";
+    cout << endl;
+    cout << "=== POST MST MENU ===" << endl;
+    cout << "1. Display new adjacency list (undirected)" << endl;
+    cout << "0. Back to main menu" << endl;
+    cout << "Select an option: ";
 }
 
 void Menu::handlePostMSTMenuMatrixKruskal(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostMSTMenuMatrixKruskal();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (undirectedWeightedIncidentMatrix) {
-                    std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
+                    cout << "New Undirected Weighted Incidence Matrix:" << endl;
                     undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);
                 } else {
-                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                    cout << "No new undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
@@ -540,21 +540,21 @@ void Menu::handlePostMSTMenuListKruskal(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostMSTMenuListKruskal();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (undirectedAdjacencyList) {
-                    std::cout << "New Undirected Adjacency List:" << std::endl;
+                    cout << "New Undirected Adjacency List:" << endl;
                     undirectedAdjacencyList->printList();
                 } else {
-                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                    cout << "No new undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
@@ -563,21 +563,21 @@ void Menu::handlePostMSTMenuMatrixPrim(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostMSTMenuMatrixPrim();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (undirectedWeightedIncidentMatrix) {
-                    std::cout << "New Undirected Weighted Incidence Matrix:" << std::endl;
+                    cout << "New Undirected Weighted Incidence Matrix:" << endl;
                     undirectedWeightedIncidentMatrix->printMatrix(startVertex, endVertex);
                 } else {
-                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                    cout << "No new undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
@@ -586,66 +586,66 @@ void Menu::handlePostMSTMenuListPrim(int startVertex, int endVertex) {
     int choice;
     do {
         displayPostMSTMenuListPrim();
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
             case 1:
                 if (undirectedAdjacencyList) {
-                    std::cout << "New Undirected Adjacency List:" << std::endl;
+                    cout << "New Undirected Adjacency List:" << endl;
                     undirectedAdjacencyList->printList();
                 } else {
-                    std::cout << "No new undirected weighted incidence matrix available." << std::endl;
+                    cout << "No new undirected weighted incidence matrix available." << endl;
                 }
                 break;
             case 0:
                 break;
             default:
-                std::cout << "Invalid option, try again." << std::endl;
+                cout << "Invalid option, try again." << endl;
         }
     } while (choice != 0);
 }
 
 void Menu::displayFileContent() {
-    std::cout << "=== FILE CONTENT ===" << std::endl;
+    cout << "=== FILE CONTENT ===" << endl;
     for (const auto& line : globalIntData) {
         for (const auto& value : line) {
-            std::cout << value << " ";
+            cout << value << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
 void Menu::generateRandomGraph() {
     int vertices;
     double density;
-    std::string filename;
-    std::cout << "Enter the number of vertices: ";
-    std::cin >> vertices;
-    std::cout << "Enter the density of the graph in percentage: ";
-    std::cin >> density;
-    std::cout << "Enter the filename to save the graph with the extension .txt: ";
-    std::cin >> filename;
+    string filename;
+    cout << "Enter the number of vertices: ";
+    cin >> vertices;
+    cout << "Enter the density of the graph in percentage: ";
+    cin >> density;
+    cout << "Enter the filename to save the graph with extension (e.g., graph.txt): ";
+    cin >> filename;
 
     GenerateRandomGraphFile generator;
     generator.generateGraphFile("../Sources/" + filename, vertices, density);
 
-    std::cout << "Random graph file generated successfully." << std::endl;
+    cout << "Random graph file generated successfully." << endl;
 }
 
 void Menu::processSelectFromLoadedFile() {
-    const std::string basePath = "../Sources/";
-    std::string filename;
-    std::cout << "Enter the name of the text file with the extension .txt: ";
-    std::cin >> filename;
+    const string basePath = "../Sources/";
+    string filename;
+    cout << "Enter the name of the text file with the extension .txt: ";
+    cin >> filename;
     filename = basePath + filename;
 
     try {
         globalIntData = ReadFile::readData(filename, true);  // Always read the entire file
         if (globalIntData.empty()) {
-            throw std::runtime_error("File is empty or could not be read.");
+            throw runtime_error("File is empty or could not be read.");
         }
-    } catch (const std::runtime_error& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+    } catch (const runtime_error& e) {
+        cerr << "Error: " << e.what() << endl;
     }
 }
 
@@ -665,7 +665,7 @@ void Menu::displayIncidenceMatrix(bool directed) {
                 directedIncidentMatrix->addEdge(v1, v2, edgeIndex);
             }
 
-            std::cout << "Directed Incident Matrix:" << std::endl;
+            cout << "Directed Incident Matrix:" << endl;
             directedIncidentMatrix->printMatrix();
         } else {
             delete undirectedIncidentMatrix; // Free previously allocated memory
@@ -678,11 +678,11 @@ void Menu::displayIncidenceMatrix(bool directed) {
                 undirectedIncidentMatrix->addEdge(v1, v2, edgeIndex);
             }
 
-            std::cout << "Undirected Incident Matrix:" << std::endl;
+            cout << "Undirected Incident Matrix:" << endl;
             undirectedIncidentMatrix->printMatrix();
         }
     } else {
-        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+        cout << "No graph data available. Load or generate a graph first." << endl;
     }
 }
 
@@ -701,7 +701,7 @@ void Menu::displayAdjacencyList(bool directed) {
                 directedAdjacencyList->addEdge(v1, v2, weight, directed);
             }
 
-            std::cout << "Directed Adjacency List:" << std::endl;
+            cout << "Directed Adjacency List:" << endl;
             directedAdjacencyList->printList();
         } else {
             delete undirectedAdjacencyList; // Free previously allocated memory
@@ -714,11 +714,11 @@ void Menu::displayAdjacencyList(bool directed) {
                 undirectedAdjacencyList->addEdge(v1, v2, weight, directed);
             }
 
-            std::cout << "Undirected Adjacency List:" << std::endl;
+            cout << "Undirected Adjacency List:" << endl;
             undirectedAdjacencyList->printList();
         }
     } else {
-        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+        cout << "No graph data available. Load or generate a graph first." << endl;
     }
 }
 
@@ -739,7 +739,7 @@ void Menu::displayWeightedIncidenceMatrix(bool directed) {
                 directedWeightedIncidentMatrix->addEdge(v1, v2, edgeIndex, weight);
             }
 
-            std::cout << "Directed Weighted Incident Matrix:" << std::endl;
+            cout << "Directed Weighted Incident Matrix:" << endl;
             directedWeightedIncidentMatrix->printMatrix();
         } else {
             delete undirectedWeightedIncidentMatrix; // Free previously allocated memory
@@ -753,10 +753,10 @@ void Menu::displayWeightedIncidenceMatrix(bool directed) {
                 undirectedWeightedIncidentMatrix->addEdge(v1, v2, edgeIndex, weight);
             }
 
-            std::cout << "Undirected Weighted Incident Matrix:" << std::endl;
+            cout << "Undirected Weighted Incident Matrix:" << endl;
             undirectedWeightedIncidentMatrix->printMatrix();
         }
     } else {
-        std::cout << "No graph data available. Load or generate a graph first." << std::endl;
+        cout << "No graph data available. Load or generate a graph first." << endl;
     }
 }

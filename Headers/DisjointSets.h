@@ -1,8 +1,9 @@
-#ifndef PROJECT_AIZO_2_DISJOINTSETS_H
-#define PROJECT_AIZO_2_DISJOINTSETS_H
-
+#ifndef PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_DISJOINTSETS_H
+#define PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_DISJOINTSETS_H
 
 #include <vector>
+
+using namespace std;
 
 class DisjointSets {
 public:
@@ -11,8 +12,8 @@ public:
     void unite(int u, int v);
 
 private:
-    std::vector<int> parent;
-    std::vector<int> rank;
+    vector<int> parent;
+    vector<int> rank;
 };
 
-#endif //PROJECT_AIZO_2_DISJOINTSETS_H
+#endif //PERFORMANCE_ANALYSIS_OF_GRAPH_ALGORITHMS_IN_DIFFERENT_GRAPH_REPRESENTATIONS_DISJOINTSETS_H

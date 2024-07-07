@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Konrad/Desktop/Project_AIZO_2/Project_AIZO_2
+# Install script for directory: C:/Users/Konrad/Desktop/IV semestr/AiZO/Project_AIZO_2/PerformanceAnalysisOfGraphAlgorithmsInDifferentGraphRepresentations
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Konrad/Desktop/Project_AIZO_2/Project_AIZO_2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Konrad/Desktop/IV semestr/AiZO/Project_AIZO_2/PerformanceAnalysisOfGraphAlgorithmsInDifferentGraphRepresentations/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

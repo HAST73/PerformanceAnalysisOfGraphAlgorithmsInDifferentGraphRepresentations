@@ -6,20 +6,22 @@
 #include <algorithm>
 #include <chrono>
 
+using namespace std;
+
 DijkstraIncidenceMatrix::DijkstraIncidenceMatrix(const IncidentMatrix& incMatrix)
         : incMatrix(incMatrix) {}
 
 void DijkstraIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
-//    auto startTime = std::chrono::high_resolution_clock::now();
+    auto startTime = chrono::high_resolution_clock::now();
 
     int vertices = incMatrix.getVertices();
     int edges = incMatrix.getEdges();
-    std::vector<int> dist(vertices, std::numeric_limits<int>::max());
-    std::vector<int> prev(vertices, -1);
+    vector<int> dist(vertices, numeric_limits<int>::max());
+    vector<int> prev(vertices, -1);
     dist[startVertex] = 0;
 
-    using pii = std::pair<int, int>;
-    std::priority_queue<pii, std::vector<pii>, std::greater<pii>> pq;
+    using pii = pair<int, int>;
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
     pq.push({0, startVertex});
 
     while (!pq.empty()) {
@@ -50,28 +52,27 @@ void DijkstraIncidenceMatrix::findShortestPath(int startVertex, int endVertex) {
         }
     }
 
-//    auto endTime = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> elapsed = endTime - startTime; // Changed to milliseconds
 
-    if (dist[endVertex] == std::numeric_limits<int>::max()) {
-        std::cout << "No path from " << startVertex << " to " << endVertex << std::endl;
+    if (dist[endVertex] == numeric_limits<int>::max()) {
+        cout << "No path from " << startVertex << " to " << endVertex << endl;
         return;
     }
 
-    std::vector<int> path;
+    vector<int> path;
     for (int at = endVertex; at != -1; at = prev[at]) {
         path.push_back(at);
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
 
-    std::cout << "Shortest path from " << startVertex << " to " << endVertex << ": ";
+    cout << "Shortest path from " << startVertex << " to " << endVertex << ": ";
     for (size_t i = 0; i < path.size(); ++i) {
-        if (i > 0) std::cout << " -> ";
-        std::cout << path[i];
+        if (i > 0) cout << " -> ";
+        cout << path[i];
     }
-    std::cout << " with total weight " << dist[endVertex] << std::endl;
-//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
+    cout << " with total weight " << dist[endVertex] << endl;
+    cout << "Elapsed time: " << elapsed.count() << " ms" << endl; // Changed output to milliseconds
 
     const_cast<IncidentMatrix&>(incMatrix).updateMatrixForDijkstra(dist, prev);
 }
-

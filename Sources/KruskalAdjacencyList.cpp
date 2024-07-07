@@ -6,8 +6,10 @@
 #include "../Headers/DisjointSets.h"
 #include "../Headers/KruskalAdjacencyList.h"
 
-std::vector<KruskalAdjacencyList::Edge> KruskalAdjacencyList::getEdges(const AdjacencyList* graph) {
-    std::vector<Edge> edges;
+using namespace std;
+
+vector<KruskalAdjacencyList::Edge> KruskalAdjacencyList::getEdges(const AdjacencyList* graph) {
+    vector<Edge> edges;
     int vertices = graph->getVertices();
 
     for (int u = 0; u < vertices; ++u) {
@@ -21,7 +23,7 @@ std::vector<KruskalAdjacencyList::Edge> KruskalAdjacencyList::getEdges(const Adj
     return edges;
 }
 
-void KruskalAdjacencyList::updateAdjacencyList(AdjacencyList* graph, const std::vector<Edge>& mstEdges, bool directed) {
+void KruskalAdjacencyList::updateAdjacencyList(AdjacencyList* graph, const vector<Edge>& mstEdges, bool directed) {
     graph->clear();
     for (const auto& edge : mstEdges) {
         graph->addEdge(edge.u, edge.v, edge.weight, directed);
@@ -29,13 +31,13 @@ void KruskalAdjacencyList::updateAdjacencyList(AdjacencyList* graph, const std::
 }
 
 void KruskalAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVertex, bool directed) {
-//    auto startTime = std::chrono::high_resolution_clock::now();
+    auto startTime = chrono::high_resolution_clock::now();
 
-    std::vector<Edge> edges = getEdges(graph);
-    std::sort(edges.begin(), edges.end()); // Sort edges by weight in ascending order
+    vector<Edge> edges = getEdges(graph);
+    sort(edges.begin(), edges.end()); // Sort edges by weight in ascending order
 
     DisjointSets ds(graph->getVertices());
-    std::vector<Edge> result;
+    vector<Edge> result;
     int totalWeight = 0;
 
     for (const auto& edge : edges) {
@@ -51,13 +53,13 @@ void KruskalAdjacencyList::run(AdjacencyList* graph, int startVertex, int endVer
 
     updateAdjacencyList(graph, result, directed);
 
-//    auto endTime = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double, std::milli> elapsed = endTime - startTime; // Changed to milliseconds
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> elapsed = endTime - startTime; // Changed to milliseconds
 
-    std::cout << "Minimum Spanning Tree using Kruskal's Algorithm (Adjacency List):" << std::endl;
+    cout << "Minimum Spanning Tree using Kruskal's Algorithm (Adjacency List):" << endl;
     for (const auto& edge : result) {
-        std::cout << edge.u << " -- " << edge.v << " == " << edge.weight << std::endl;
+        cout << edge.u << " -- " << edge.v << " == " << edge.weight << endl;
     }
-    std::cout << "Total weight of MST: " << totalWeight << std::endl;
-//    std::cout << "Elapsed time: " << elapsed.count() << " ms" << std::endl; // Changed output to milliseconds
+    cout << "Total weight of MST: " << totalWeight << endl;
+    cout << "Elapsed time: " << elapsed.count() << " ms" << endl; // Changed output to milliseconds
 }
